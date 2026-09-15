@@ -12,7 +12,7 @@ https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/sr_cnip.c
 
 ## 填写自定义规则
 
-已在 [custom-rules.md](custom-rules.md) 分组启用 Apple Intelligence / Siri / ChatGPT、Google Health / Fitbit、嘉信理财 / thinkorswim 和 TradingView 的代理规则，附有域名用途、官方来源及可选规则。
+已在 [custom-rules.md](custom-rules.md) 分组启用 Apple Intelligence / Siri、ChatGPT / Codex / ChatGPT Health、Claude / Claude Code、Gemini / AI Studio / Code Assist、Google Health / Fitbit、嘉信理财 / thinkorswim 和 TradingView 的代理规则，附有域名用途、官方来源及可选规则。插件覆盖公共通道与安装依赖，第三方授权和自建 MCP 仍按实际服务扩充。
 
 编辑其中的 `shadowrocket` 代码块即可修改；以 `#` 开头的可选规则默认不生效。提交到 `main` 后立即触发同步，也可以在 Actions → Sync Shadowrocket rules → Run workflow 手动运行。
 
