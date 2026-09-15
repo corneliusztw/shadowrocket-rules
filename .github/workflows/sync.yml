@@ -1,0 +1,48 @@
+name: Sync Shadowrocket rules
+
+on:
+  schedule:
+    # UTC 01:00 = 北京时间 09:00
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - custom-rules.md
+      - scripts/**
+      - tests/**
+      - .github/workflows/sync.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-shadowrocket
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Test merge behavior
+        run: node --test
+      - name: Fetch and merge config
+        run: node scripts/sync.mjs
+      - name: Commit changed config
+        run: |
+          git add sr_cnip.conf
+          if git diff --cached --quiet; then
+            echo "Config unchanged; no commit needed."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: sync Shadowrocket config'
+          git push origin HEAD:main
