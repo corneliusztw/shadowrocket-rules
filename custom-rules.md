@@ -3,6 +3,8 @@
 核查日期：2026-09-15。以下 `shadowrocket` 代码块中的非注释规则全部启用，策略均为 `PROXY`。
 同步脚本按文档顺序提取这些代码块，合并到上游 `[Rule]` 最前面；后续直接编辑此文件即可。
 
+同一份规则也转换到 Clash / Mihomo 的 `clash-rules.yaml`，优先于 Loyalsoldier 上游规则集。Clash 使用方式及支持的转换类型见 [clash/README.md](clash/README.md)。
+
 `DOMAIN` 匹配一个完整域名；`DOMAIN-SUFFIX` 同时覆盖根域名和全部子域名。例如 `tradingview.com` 已覆盖 `www.tradingview.com`、`scanner.tradingview.com`，无需重复添加每个子域名。
 
 本清单依据官方网络文档、官方 API 文档和公开网页中的资源地址整理。它不是手机抓包得出的完整依赖清单；官方端点、页面中发现的主机、为兼容而扩大的范围在下文分别说明。规则控制网络路由，不保证开通地区、账号资格或订阅权限。

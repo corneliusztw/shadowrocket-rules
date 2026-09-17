@@ -1,4 +1,4 @@
-name: Sync Shadowrocket rules
+name: Sync Shadowrocket and Clash rules
 
 on:
   schedule:
@@ -12,6 +12,8 @@ on:
       - scripts/**
       - tests/**
       - .github/workflows/sync.yml
+      - package.json
+      - package-lock.json
 
 permissions:
   contents: write
@@ -31,18 +33,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Install generator dependencies
+        run: npm ci --ignore-scripts
       - name: Test merge behavior
         run: node --test
-      - name: Fetch and merge config
-        run: node scripts/sync.mjs
+      - name: Fetch and merge both configs
+        run: npm run sync
       - name: Commit changed config
         run: |
-          git add sr_cnip.conf
+          git add sr_cnip.conf clash-rules.yaml clash/providers clash/upstream.json clash/LICENSE-Loyalsoldier
           if git diff --cached --quiet; then
             echo "Config unchanged; no commit needed."
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'chore: sync Shadowrocket config'
+          git commit -m 'chore: sync Shadowrocket and Clash rules'
           git push origin HEAD:main

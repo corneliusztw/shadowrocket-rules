@@ -1,0 +1,10 @@
+{
+  "name": "shadowrocket-rules",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "sync": "node scripts/sync.mjs && node scripts/sync-clash.mjs"
+  },
+  "dependencies": { "yaml": "2.9.1" }
+}

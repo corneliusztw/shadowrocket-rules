@@ -1,0 +1,158 @@
+# Generated rules fragment; merge into an existing Clash/Mihomo config.
+# Requires a PROXY policy; contains no nodes or subscription credentials.
+# Source and license: clash/README.md. Custom rules take precedence.
+# Loyalsoldier release revision: 10c59b7ab23316558e70fd0632fc93a9c61a1461
+rule-providers:
+  ls-private:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/private.yaml
+    path: ./ruleset/shadowrocket-rules/private.yaml
+    interval: 86400
+  ls-reject:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/reject.yaml
+    path: ./ruleset/shadowrocket-rules/reject.yaml
+    interval: 86400
+  ls-icloud:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/icloud.yaml
+    path: ./ruleset/shadowrocket-rules/icloud.yaml
+    interval: 86400
+  ls-apple:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/apple.yaml
+    path: ./ruleset/shadowrocket-rules/apple.yaml
+    interval: 86400
+  ls-google:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/google.yaml
+    path: ./ruleset/shadowrocket-rules/google.yaml
+    interval: 86400
+  ls-proxy:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/proxy.yaml
+    path: ./ruleset/shadowrocket-rules/proxy.yaml
+    interval: 86400
+  ls-direct:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/direct.yaml
+    path: ./ruleset/shadowrocket-rules/direct.yaml
+    interval: 86400
+  ls-lancidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/lancidr.yaml
+    path: ./ruleset/shadowrocket-rules/lancidr.yaml
+    interval: 86400
+  ls-cncidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/cncidr.yaml
+    path: ./ruleset/shadowrocket-rules/cncidr.yaml
+    interval: 86400
+  ls-telegramcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/telegramcidr.yaml
+    path: ./ruleset/shadowrocket-rules/telegramcidr.yaml
+    interval: 86400
+rules:
+  - DOMAIN,apple-relay.cloudflare.com,PROXY
+  - DOMAIN,apple-relay.fastly-edge.com,PROXY
+  - DOMAIN,cp4.cloudflare.com,PROXY
+  - DOMAIN,apple-relay.apple.com,PROXY
+  - DOMAIN,guzzoni.apple.com,PROXY
+  - DOMAIN-SUFFIX,smoot.apple.com,PROXY
+  - DOMAIN-SUFFIX,chatgpt.com,PROXY
+  - DOMAIN-SUFFIX,openai.com,PROXY
+  - DOMAIN-SUFFIX,oaistatic.com,PROXY
+  - DOMAIN-SUFFIX,oaiusercontent.com,PROXY
+  - DOMAIN-SUFFIX,oaistatsig.com,PROXY
+  - DOMAIN,cdn.openaimerge.com,PROXY
+  - DOMAIN,challenges.cloudflare.com,PROXY
+  - DOMAIN,cdn.workos.com,PROXY
+  - DOMAIN,forwarder.workos.com,PROXY
+  - DOMAIN,setup.workos.com,PROXY
+  - DOMAIN,images.workoscdn.com,PROXY
+  - DOMAIN,workos.imgix.net,PROXY
+  - DOMAIN,humb.apple.com,PROXY
+  - DOMAIN-SUFFIX,health.google,PROXY
+  - DOMAIN,health.googleapis.com,PROXY
+  - DOMAIN-SUFFIX,fitbit.com,PROXY
+  - DOMAIN,accounts.google.com,PROXY
+  - DOMAIN,oauth2.googleapis.com,PROXY
+  - DOMAIN,myaccount.google.com,PROXY
+  - DOMAIN,support.google.com,PROXY
+  - DOMAIN,policies.google.com,PROXY
+  - DOMAIN,store.google.com,PROXY
+  - DOMAIN,one.google.com,PROXY
+  - DOMAIN,payments.google.com,PROXY
+  - DOMAIN,www.google.com,PROXY
+  - DOMAIN,fonts.googleapis.com,PROXY
+  - DOMAIN-SUFFIX,gstatic.com,PROXY
+  - DOMAIN-SUFFIX,googleusercontent.com,PROXY
+  - DOMAIN-SUFFIX,schwab.com,PROXY
+  - DOMAIN-SUFFIX,schwabcdn.com,PROXY
+  - DOMAIN-SUFFIX,schwab.com.hk,PROXY
+  - DOMAIN-SUFFIX,schwab.co.uk,PROXY
+  - DOMAIN-SUFFIX,schwab.com.sg,PROXY
+  - DOMAIN-SUFFIX,thinkorswim.com,PROXY
+  - DOMAIN-SUFFIX,tradingview.com,PROXY
+  - DOMAIN-SUFFIX,tradingview-widget.com,PROXY
+  - DOMAIN,tradingview-user-uploads.b-cdn.net,PROXY
+  - DOMAIN-SUFFIX,ct.sendgrid.net,PROXY
+  - DOMAIN-SUFFIX,intercom.io,PROXY
+  - DOMAIN-SUFFIX,intercomcdn.com,PROXY
+  - DOMAIN,js.stripe.com,PROXY
+  - DOMAIN,o207216.ingest.sentry.io,PROXY
+  - DOMAIN,o33249.ingest.sentry.io,PROXY
+  - DOMAIN,rum.browser-intake-datadoghq.com,PROXY
+  - DOMAIN-SUFFIX,onemedical.com,PROXY
+  - DOMAIN-SUFFIX,functionhealth.com,PROXY
+  - DOMAIN-SUFFIX,github.com,PROXY
+  - DOMAIN,objects.githubusercontent.com,PROXY
+  - DOMAIN,release-assets.githubusercontent.com,PROXY
+  - DOMAIN,registry.npmjs.org,PROXY
+  - DOMAIN-SUFFIX,claude.ai,PROXY
+  - DOMAIN-SUFFIX,claude.com,PROXY
+  - DOMAIN-SUFFIX,anthropic.com,PROXY
+  - DOMAIN-SUFFIX,claudeusercontent.com,PROXY
+  - DOMAIN,storage.googleapis.com,PROXY
+  - DOMAIN-SUFFIX,gemini.google.com,PROXY
+  - DOMAIN,gemini.app.google,PROXY
+  - DOMAIN,aistudio.google.com,PROXY
+  - DOMAIN,geminiweb-pa.clients6.google.com,PROXY
+  - DOMAIN,waa-pa.clients6.google.com,PROXY
+  - DOMAIN,push.clients6.google.com,PROXY
+  - DOMAIN,ogads-pa.clients6.google.com,PROXY
+  - DOMAIN,ogs.google.com,PROXY
+  - DOMAIN,content.googleapis.com,PROXY
+  - DOMAIN,drive.google.com,PROXY
+  - DOMAIN,docs.google.com,PROXY
+  - DOMAIN,generativelanguage.googleapis.com,PROXY
+  - DOMAIN,cloudcode-pa.googleapis.com,PROXY
+  - DOMAIN,cloudaicompanion.googleapis.com,PROXY
+  - DOMAIN,serviceusage.googleapis.com,PROXY
+  - DOMAIN,cloudresourcemanager.googleapis.com,PROXY
+  - DOMAIN,people.googleapis.com,PROXY
+  - DOMAIN,firebaselogging-pa.googleapis.com,PROXY
+  - DOMAIN,feedback-pa.googleapis.com,PROXY
+  - DOMAIN,apihub.googleapis.com,PROXY
+  - RULE-SET,ls-private,DIRECT
+  - RULE-SET,ls-reject,REJECT
+  - RULE-SET,ls-icloud,DIRECT
+  - RULE-SET,ls-apple,DIRECT
+  - RULE-SET,ls-google,PROXY
+  - RULE-SET,ls-proxy,PROXY
+  - RULE-SET,ls-direct,DIRECT
+  - RULE-SET,ls-lancidr,DIRECT
+  - RULE-SET,ls-cncidr,DIRECT
+  - RULE-SET,ls-telegramcidr,PROXY
+  - MATCH,PROXY
