@@ -8,7 +8,7 @@
 
 https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash-rules.yaml
 
-这是规则配置片段，包含 `rule-providers` 和 `rules`，需合并到你已有的节点配置，并提供名为 `PROXY` 的策略组。它不是完整节点订阅。Clash 版包含上游广告屏蔽规则；[合并方法、更新方式及策略说明](clash/README.md)。
+这是规则配置片段，包含 `rule-providers` 和 `rules`，需合并到你已有的节点配置，并提供名为 `PROXY` 的策略组。它不是完整节点订阅。Clash 版采用国内及局域网直连、其余流量代理，不包含广告屏蔽；自定义规则优先。[合并方法、更新方式及策略说明](clash/README.md)。
 
 ## Shadowrocket 配置地址
 

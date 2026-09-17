@@ -11,41 +11,6 @@
       "sha256": "3a04b128200ef8097d73b1496cbb23d24bc1e05d42fffb09f07c51699efb00b2"
     },
     {
-      "name": "reject",
-      "behavior": "domain",
-      "count": 188956,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/10c59b7ab23316558e70fd0632fc93a9c61a1461/reject.txt",
-      "sha256": "2d5928a8656653917dc890cdfe1c680a66a472daba2531bdd3f8414f123e9842"
-    },
-    {
-      "name": "icloud",
-      "behavior": "domain",
-      "count": 53,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/10c59b7ab23316558e70fd0632fc93a9c61a1461/icloud.txt",
-      "sha256": "f1fb7e9d17400071bf77d853b2a3148ccb6a13d785cb97e73f1693142682b23f"
-    },
-    {
-      "name": "apple",
-      "behavior": "domain",
-      "count": 165,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/10c59b7ab23316558e70fd0632fc93a9c61a1461/apple.txt",
-      "sha256": "a47d516880dcf65f51d3b40e6a71c33253e0774bdc4a7ec0a0d0a09a4dd522a2"
-    },
-    {
-      "name": "google",
-      "behavior": "domain",
-      "count": 112,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/10c59b7ab23316558e70fd0632fc93a9c61a1461/google.txt",
-      "sha256": "21a04f287800943b3fdfdef1f843173086171d9a0b5c9c33c3f73e1ec77d4c9e"
-    },
-    {
-      "name": "proxy",
-      "behavior": "domain",
-      "count": 27092,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/10c59b7ab23316558e70fd0632fc93a9c61a1461/proxy.txt",
-      "sha256": "7010f7be744dfac04bbdc292d4a6d7d1050d4ca79e6bad144b46966cf8b45b40"
-    },
-    {
       "name": "direct",
       "behavior": "domain",
       "count": 111160,
@@ -65,13 +30,6 @@
       "count": 9741,
       "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/10c59b7ab23316558e70fd0632fc93a9c61a1461/cncidr.txt",
       "sha256": "65669404ff308b1190bdf7b3f97302948d817582b73020750a15db00b529a7bb"
-    },
-    {
-      "name": "telegramcidr",
-      "behavior": "ipcidr",
-      "count": 12,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/10c59b7ab23316558e70fd0632fc93a9c61a1461/telegramcidr.txt",
-      "sha256": "328fca88c675763111c7f7585ec504e5c21ab9afb7a8ce6df33b7ac01b8a3ee0"
     }
   ]
 }

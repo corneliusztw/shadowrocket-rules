@@ -32,19 +32,15 @@
 | --- | --- | --- |
 | 1 | Markdown 启用的自定义规则，按原顺序 | 当前为 PROXY；也支持明确填写 DIRECT / REJECT |
 | 2 | private | DIRECT |
-| 3 | reject | REJECT |
-| 4 | icloud、apple | DIRECT |
-| 5 | google、proxy | PROXY |
-| 6 | direct | DIRECT |
-| 7 | lancidr、cncidr | DIRECT |
-| 8 | telegramcidr | PROXY |
-| 9 | 未匹配流量 | MATCH,PROXY |
+| 3 | direct（上游国内 / 可直连域名列表） | DIRECT |
+| 4 | lancidr、cncidr（局域网及国内 IP） | DIRECT |
+| 5 | 未匹配流量 | MATCH,PROXY |
 
-这是参考上游白名单模式的组合，调整为自定义规则优先。Apple AI、Gemini 等自定义代理规则会先于 Apple 直连或广告列表命中。自定义域名与上游重叠时，保留上游原始内容以方便更新，依靠顺序落实你的覆盖意图。
+仅使用 Loyalsoldier 一个上游的四个直连规则集：`private`、`direct`、`lancidr`、`cncidr`，其余流量统一代理。Apple AI、Gemini 等自定义规则先于国内直连列表命中。自定义域名与上游重叠时，保留上游原始内容以方便更新，依靠顺序落实你的覆盖意图。国内 / 可直连域名的归类以该上游列表为准，不代表逐次检测服务商或服务器所在地。
 
 不启用上游 `applications` 进程直连列表，以免进程规则带来额外直连行为；不额外依赖下载 GEOIP 数据库，使用同版本的 `lancidr` / `cncidr` 规则集做地址匹配。这与上游示例末尾的 GEOIP 数据来源可能存在差异。
 
-**Clash 版包含上游 reject 广告列表**；原 Shadowrocket 的 `sr_cnip.conf` 是不含广告过滤的另一套上游。两个版本共享自定义规则，但不是逐条相同的配置。自定义规则优先也意味着你明确指定代理的域名会覆盖其下原本可能被屏蔽的广告子域名。
+**不下载、不引用广告屏蔽列表，也不另外启用 Apple / iCloud 或其他服务的专用上游列表。** 广告请求按普通流量参与直连 / 代理分流。Shadowrocket 仍使用原来的无广告过滤上游；两个版本共享自定义规则，但不是逐条相同的配置。转换器保留对手动自定义 `REJECT` 的语法支持，当前启用的 81 条自定义规则全部为 `PROXY`。
 
 ## 自定义规则转换范围
 

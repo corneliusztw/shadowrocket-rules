@@ -9,36 +9,6 @@ rule-providers:
     url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/private.yaml
     path: ./ruleset/shadowrocket-rules/private.yaml
     interval: 86400
-  ls-reject:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/reject.yaml
-    path: ./ruleset/shadowrocket-rules/reject.yaml
-    interval: 86400
-  ls-icloud:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/icloud.yaml
-    path: ./ruleset/shadowrocket-rules/icloud.yaml
-    interval: 86400
-  ls-apple:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/apple.yaml
-    path: ./ruleset/shadowrocket-rules/apple.yaml
-    interval: 86400
-  ls-google:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/google.yaml
-    path: ./ruleset/shadowrocket-rules/google.yaml
-    interval: 86400
-  ls-proxy:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/proxy.yaml
-    path: ./ruleset/shadowrocket-rules/proxy.yaml
-    interval: 86400
   ls-direct:
     type: http
     behavior: domain
@@ -56,12 +26,6 @@ rule-providers:
     behavior: ipcidr
     url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/cncidr.yaml
     path: ./ruleset/shadowrocket-rules/cncidr.yaml
-    interval: 86400
-  ls-telegramcidr:
-    type: http
-    behavior: ipcidr
-    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/telegramcidr.yaml
-    path: ./ruleset/shadowrocket-rules/telegramcidr.yaml
     interval: 86400
 rules:
   - DOMAIN,apple-relay.cloudflare.com,PROXY
@@ -146,13 +110,7 @@ rules:
   - DOMAIN,feedback-pa.googleapis.com,PROXY
   - DOMAIN,apihub.googleapis.com,PROXY
   - RULE-SET,ls-private,DIRECT
-  - RULE-SET,ls-reject,REJECT
-  - RULE-SET,ls-icloud,DIRECT
-  - RULE-SET,ls-apple,DIRECT
-  - RULE-SET,ls-google,PROXY
-  - RULE-SET,ls-proxy,PROXY
   - RULE-SET,ls-direct,DIRECT
   - RULE-SET,ls-lancidr,DIRECT
   - RULE-SET,ls-cncidr,DIRECT
-  - RULE-SET,ls-telegramcidr,PROXY
   - MATCH,PROXY

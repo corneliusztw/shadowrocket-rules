@@ -3,11 +3,15 @@ import assert from 'node:assert/strict';
 import { buildConfig, convertRule, validatePayload, providers } from '../scripts/sync-clash.mjs';
 const md = text => '```shadowrocket\n' + text + '\n```\n';
 
-test('Clash preserves custom exceptions before reject and direct providers', () => {
+test('Clash preserves custom exceptions before domestic direct rules without ad blocking', () => {
   const config = buildConfig(md('DOMAIN,api.example.com,DIRECT\nDOMAIN-SUFFIX,example.com,PROXY'));
   assert.deepEqual(config.rules.slice(0, 2), ['DOMAIN,api.example.com,DIRECT', 'DOMAIN-SUFFIX,example.com,PROXY']);
   assert.equal(config.rules.at(-1), 'MATCH,PROXY');
-  assert.ok(config.rules.indexOf('RULE-SET,ls-reject,REJECT') > 1);
+  assert.deepEqual(config.rules.slice(2), [
+    'RULE-SET,ls-private,DIRECT', 'RULE-SET,ls-direct,DIRECT',
+    'RULE-SET,ls-lancidr,DIRECT', 'RULE-SET,ls-cncidr,DIRECT', 'MATCH,PROXY',
+  ]);
+  assert.ok(!config.rules.some(rule => rule.endsWith(',REJECT')));
   assert.equal(Object.keys(config['rule-providers']).length, providers.length);
 });
 test('Clash converts IPv6 and rejects unsupported policies and options', () => {

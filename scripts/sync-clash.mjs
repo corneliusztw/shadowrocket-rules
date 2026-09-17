@@ -11,11 +11,9 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const upstreamRepo = 'https://github.com/Loyalsoldier/clash-rules.git';
 const publicBase = 'https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main';
 export const providers = [
-  ['private', 'domain', 'DIRECT'], ['reject', 'domain', 'REJECT'],
-  ['icloud', 'domain', 'DIRECT'], ['apple', 'domain', 'DIRECT'],
-  ['google', 'domain', 'PROXY'], ['proxy', 'domain', 'PROXY'],
+  ['private', 'domain', 'DIRECT'],
   ['direct', 'domain', 'DIRECT'], ['lancidr', 'ipcidr', 'DIRECT'],
-  ['cncidr', 'ipcidr', 'DIRECT'], ['telegramcidr', 'ipcidr', 'PROXY'],
+  ['cncidr', 'ipcidr', 'DIRECT'],
 ];
 
 export function convertRule(raw) {
