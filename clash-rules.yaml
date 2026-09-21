@@ -109,6 +109,13 @@ rules:
   - DOMAIN,firebaselogging-pa.googleapis.com,PROXY
   - DOMAIN,feedback-pa.googleapis.com,PROXY
   - DOMAIN,apihub.googleapis.com,PROXY
+  - DOMAIN-SUFFIX,meta.ai,PROXY
+  - DOMAIN-SUFFIX,meta.com,PROXY
+  - DOMAIN-SUFFIX,facebook.com,PROXY
+  - DOMAIN-SUFFIX,facebook.net,PROXY
+  - DOMAIN-SUFFIX,fbcdn.net,PROXY
+  - DOMAIN-SUFFIX,instagram.com,PROXY
+  - DOMAIN-SUFFIX,cdninstagram.com,PROXY
   - RULE-SET,ls-private,DIRECT
   - RULE-SET,ls-direct,DIRECT
   - RULE-SET,ls-lancidr,DIRECT

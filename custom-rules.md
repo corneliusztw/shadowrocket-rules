@@ -359,14 +359,38 @@ DOMAIN,apihub.googleapis.com,PROXY
 
 来源：[Gemini API](https://ai.google.dev/api/generate-content)、[Gemini CLI 认证方式](https://geminicli.com/docs/get-started/authentication/)、[Google Code Assist 网络要求](https://docs.cloud.google.com/gemini/docs/codeassist/set-up-gemini)。没有启用整个 `googleapis.com` 后缀，已有 Google Health 和 OAuth 精确规则继续有效。
 
-## 8. 插件与连接器的范围边界
+## 8. Meta AI
+
+本节补充日期：2026-09-21。覆盖 Meta AI 网页入口、Meta 账号，以及 Facebook / Instagram 登录和共享资源的兼容范围。
+
+```shadowrocket
+# Meta AI 主站及子域名
+DOMAIN-SUFFIX,meta.ai,PROXY
+# Meta 账号、产品入口及 AI 介绍站（含 accountscenter.meta.com、ai.meta.com）
+DOMAIN-SUFFIX,meta.com,PROXY
+# Facebook 登录及共享脚本、图片和媒体资源
+DOMAIN-SUFFIX,facebook.com,PROXY
+DOMAIN-SUFFIX,facebook.net,PROXY
+DOMAIN-SUFFIX,fbcdn.net,PROXY
+# Instagram 登录及共享媒体资源
+DOMAIN-SUFFIX,instagram.com,PROXY
+DOMAIN-SUFFIX,cdninstagram.com,PROXY
+```
+
+`meta.ai` 后缀已覆盖 `www.meta.ai` 及其他子域名，无需重复添加。Meta 官方介绍确认 Meta AI 网页入口及 Facebook、Instagram 等应用内入口；上述登录和 CDN 后缀属于兼容补充，不是官方公布的完整网络白名单，也不是每次聊天都必需的连接。
+
+Facebook / Instagram 及其 CDN 是共享域名，启用后对应社交平台的其他流量也会走代理。本组不代表 WhatsApp / Messenger 独立应用的完整网络覆盖；具体失败连接仍按客户端日志补充。
+
+来源：[Meta AI 官方介绍](https://ai.meta.com/meta-ai/)、[Meta AI 应用发布说明](https://about.fb.com/news/2025/04/introducing-meta-ai-app-new-way-access-ai-assistant/)。
+
+## 9. 插件与连接器的范围边界
 
 - **本机发起的连接：** 浏览器 OAuth、CLI / IDE 的 MCP、本地插件下载等，只有流量经过 Shadowrocket 时才受本文件控制。第三方授权平台可能需要额外域名。
 - **云端发起的连接：** 例如 Claude 官方说明的自定义远程连接器由 Anthropic 云端访问 MCP 服务器；本机加代理规则不会改变云端到目标服务的网络。来源：[Claude 连接器说明](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)。
 - **任意插件：** GitHub、Google Drive、Slack、Notion、医院门户及自建 MCP 的依赖各不相同，没有能保证所有插件均可用的一组固定域名。这里补齐 AI 平台公共通道、安装源及明确命名的 Health 数据源；新增具体插件时依据该插件的实际端点扩充。
 - **流式及语音：** 规则可匹配域名，但无法让节点自动获得 WebSocket 或 UDP 支持。OpenAI 官方另列 ChatGPT Voice 的 UDP 3478 与动态 IP 清单；本文件没有静态复制这些 IP，不能声称覆盖所有直接 IP 语音连接。参见第 5.1 节官方网络文档。
 
-## 9. 使用与验证
+## 10. 使用与验证
 
 1. 将此文件提交到 `main`，工作流会生成 `sr_cnip.conf`；也可本地执行 `node --test` 和 `node scripts/sync.mjs`。
 2. 在 Shadowrocket 更新并启用该远程配置，使用按配置分流的模式；确认 `PROXY` 对应可用节点。
