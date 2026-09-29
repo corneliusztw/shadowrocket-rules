@@ -116,6 +116,9 @@ rules:
   - DOMAIN-SUFFIX,fbcdn.net,PROXY
   - DOMAIN-SUFFIX,instagram.com,PROXY
   - DOMAIN-SUFFIX,cdninstagram.com,PROXY
+  - DOMAIN-SUFFIX,paypal.com,PROXY
+  - DOMAIN-SUFFIX,paypalobjects.com,PROXY
+  - DOMAIN-SUFFIX,paypal.me,PROXY
   - RULE-SET,ls-private,DIRECT
   - RULE-SET,ls-direct,DIRECT
   - RULE-SET,ls-lancidr,DIRECT

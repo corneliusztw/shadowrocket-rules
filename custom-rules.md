@@ -383,14 +383,31 @@ Facebook / Instagram 及其 CDN 是共享域名，启用后对应社交平台的
 
 来源：[Meta AI 官方介绍](https://ai.meta.com/meta-ai/)、[Meta AI 应用发布说明](https://about.fb.com/news/2025/04/introducing-meta-ai-app-new-way-access-ai-assistant/)。
 
-## 9. 插件与连接器的范围边界
+## 9. PayPal
+
+本节补充日期：2026-09-29。覆盖 PayPal 网站、登录与付款页面、官方静态资源，以及 PayPal.Me 收款链接。
+
+```shadowrocket
+# PayPal 网站、登录、结账及其子域名下的 API
+DOMAIN-SUFFIX,paypal.com,PROXY
+# PayPal 页面和结账组件使用的脚本、图片等资源
+DOMAIN-SUFFIX,paypalobjects.com,PROXY
+# PayPal.Me 收款链接
+DOMAIN-SUFFIX,paypal.me,PROXY
+```
+
+`paypal.com` 后缀已覆盖 `www.paypal.com`、`developer.paypal.com` 和其子域名下的 API；`paypalobjects.com` 是 PayPal 官方支付组件文档列出的资源域名。PayPal.Me 使用单独的 `paypal.me` 域名，需要独立规则。这里没有将 Braintree、Venmo 或支付页面上的其他第三方服务一并代理；如实际结账流程还访问其他主机，可按连接记录补充。
+
+来源：[PayPal 支付链接与按钮排查文档](https://developer.paypal.com/payment-links-buttons/troubleshooting/)、[PayPal.Me 官方说明](https://www.paypal.com/us/cshelp/article/paypalme-frequently-asked-questions-help432)。
+
+## 10. 插件与连接器的范围边界
 
 - **本机发起的连接：** 浏览器 OAuth、CLI / IDE 的 MCP、本地插件下载等，只有流量经过 Shadowrocket 时才受本文件控制。第三方授权平台可能需要额外域名。
 - **云端发起的连接：** 例如 Claude 官方说明的自定义远程连接器由 Anthropic 云端访问 MCP 服务器；本机加代理规则不会改变云端到目标服务的网络。来源：[Claude 连接器说明](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)。
 - **任意插件：** GitHub、Google Drive、Slack、Notion、医院门户及自建 MCP 的依赖各不相同，没有能保证所有插件均可用的一组固定域名。这里补齐 AI 平台公共通道、安装源及明确命名的 Health 数据源；新增具体插件时依据该插件的实际端点扩充。
 - **流式及语音：** 规则可匹配域名，但无法让节点自动获得 WebSocket 或 UDP 支持。OpenAI 官方另列 ChatGPT Voice 的 UDP 3478 与动态 IP 清单；本文件没有静态复制这些 IP，不能声称覆盖所有直接 IP 语音连接。参见第 5.1 节官方网络文档。
 
-## 10. 使用与验证
+## 11. 使用与验证
 
 1. 将此文件提交到 `main`，工作流会生成 `sr_cnip.conf`；也可本地执行 `node --test` 和 `node scripts/sync.mjs`。
 2. 在 Shadowrocket 更新并启用该远程配置，使用按配置分流的模式；确认 `PROXY` 对应可用节点。
