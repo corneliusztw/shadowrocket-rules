@@ -1,34 +1,34 @@
 {
   "repository": "https://github.com/Loyalsoldier/clash-rules.git",
-  "revision": "6305f74d2352660337098cf5dbe2d31c967929b4",
+  "revision": "e58adc285bec8d5a9573bc68b30417dc6f83b1d0",
   "licenseRevision": "ab21f1c70d263c683990a0aed446ad3bf09a2961",
   "files": [
     {
       "name": "private",
       "behavior": "domain",
       "count": 130,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/6305f74d2352660337098cf5dbe2d31c967929b4/private.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/e58adc285bec8d5a9573bc68b30417dc6f83b1d0/private.txt",
       "sha256": "3a04b128200ef8097d73b1496cbb23d24bc1e05d42fffb09f07c51699efb00b2"
     },
     {
       "name": "direct",
       "behavior": "domain",
       "count": 111353,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/6305f74d2352660337098cf5dbe2d31c967929b4/direct.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/e58adc285bec8d5a9573bc68b30417dc6f83b1d0/direct.txt",
       "sha256": "e1664a48aa5ffc62bd4941787db59446335cc933d3c39ff083e4000ae9c5993b"
     },
     {
       "name": "lancidr",
       "behavior": "ipcidr",
       "count": 18,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/6305f74d2352660337098cf5dbe2d31c967929b4/lancidr.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/e58adc285bec8d5a9573bc68b30417dc6f83b1d0/lancidr.txt",
       "sha256": "82920b241dc328f1dc99849cf733ed8675a00a4ee0bdf64c892b332dfb7e1e2e"
     },
     {
       "name": "cncidr",
       "behavior": "ipcidr",
       "count": 9648,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/6305f74d2352660337098cf5dbe2d31c967929b4/cncidr.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/e58adc285bec8d5a9573bc68b30417dc6f83b1d0/cncidr.txt",
       "sha256": "d8c10e5b1a07de611331c2c1b838c64667163564828e1c687b9d977679d036b7"
     }
   ]
