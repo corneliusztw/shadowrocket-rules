@@ -1,35 +1,35 @@
 {
   "repository": "https://github.com/Loyalsoldier/clash-rules.git",
-  "revision": "c6515e844ef66a95ec62eae56911a391fa34b19a",
+  "revision": "a70596ecd36561e89ba5883b7651b3b875d6b74b",
   "licenseRevision": "ab21f1c70d263c683990a0aed446ad3bf09a2961",
   "files": [
     {
       "name": "private",
       "behavior": "domain",
       "count": 130,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/c6515e844ef66a95ec62eae56911a391fa34b19a/private.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/a70596ecd36561e89ba5883b7651b3b875d6b74b/private.txt",
       "sha256": "3a04b128200ef8097d73b1496cbb23d24bc1e05d42fffb09f07c51699efb00b2"
     },
     {
       "name": "direct",
       "behavior": "domain",
-      "count": 111392,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/c6515e844ef66a95ec62eae56911a391fa34b19a/direct.txt",
-      "sha256": "d7bff4c90e03d703797f35b1592af68636e33787e0e1052dde783f9d66981c8f"
+      "count": 111724,
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/a70596ecd36561e89ba5883b7651b3b875d6b74b/direct.txt",
+      "sha256": "6ecbfd74ab9682c1c9bf511fa0f734535514548a35e882bbf716cdb46e30ada1"
     },
     {
       "name": "lancidr",
       "behavior": "ipcidr",
       "count": 18,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/c6515e844ef66a95ec62eae56911a391fa34b19a/lancidr.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/a70596ecd36561e89ba5883b7651b3b875d6b74b/lancidr.txt",
       "sha256": "82920b241dc328f1dc99849cf733ed8675a00a4ee0bdf64c892b332dfb7e1e2e"
     },
     {
       "name": "cncidr",
       "behavior": "ipcidr",
-      "count": 9648,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/c6515e844ef66a95ec62eae56911a391fa34b19a/cncidr.txt",
-      "sha256": "d8c10e5b1a07de611331c2c1b838c64667163564828e1c687b9d977679d036b7"
+      "count": 9609,
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/a70596ecd36561e89ba5883b7651b3b875d6b74b/cncidr.txt",
+      "sha256": "0db34dd0446a376f5a8a2948b1878acd4a4b697025c7c02df3e56e4fd876c352"
     }
   ]
 }
