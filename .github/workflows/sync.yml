@@ -41,7 +41,7 @@ jobs:
         run: npm run sync
       - name: Commit changed config
         run: |
-          git add sr_cnip.conf clash-rules.yaml clash/providers clash/upstream.json clash/LICENSE-Loyalsoldier
+          git add sr_cnip.conf clash-rules.yaml clash-verge-rules.yaml clash/providers clash/upstream.json clash/LICENSE-Loyalsoldier
           if git diff --cached --quiet; then
             echo "Config unchanged; no commit needed."
             exit 0

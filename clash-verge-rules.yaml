@@ -1,0 +1,41 @@
+# Generated remote rule-provider fragment for Clash Verge / Mihomo.
+# Merge with existing nodes; requires a PROXY policy.
+rule-providers:
+  custom-proxy:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/custom-proxy.yaml
+    path: ./ruleset/shadowrocket-rules/custom-proxy.yaml
+    interval: 86400
+  ls-private:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/private.yaml
+    path: ./ruleset/shadowrocket-rules/private.yaml
+    interval: 86400
+  ls-direct:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/direct.yaml
+    path: ./ruleset/shadowrocket-rules/direct.yaml
+    interval: 86400
+  ls-lancidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/lancidr.yaml
+    path: ./ruleset/shadowrocket-rules/lancidr.yaml
+    interval: 86400
+  ls-cncidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/cncidr.yaml
+    path: ./ruleset/shadowrocket-rules/cncidr.yaml
+    interval: 86400
+rules:
+  - RULE-SET,custom-proxy,PROXY
+  - RULE-SET,ls-private,DIRECT
+  - RULE-SET,ls-direct,DIRECT
+  - RULE-SET,ls-lancidr,DIRECT
+  - RULE-SET,ls-cncidr,DIRECT
+  - MATCH,PROXY

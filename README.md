@@ -6,6 +6,8 @@
 
 ## Clash / Mihomo 规则地址
 
+Clash Verge 需要自动同步自定义规则时，使用 [clash-verge-rules.yaml](clash-verge-rules.yaml) 作为订阅扩展配置；它引用独立的 [custom-proxy.yaml](clash/providers/custom-proxy.yaml)，客户端每隔 24 小时拉取。将片段中的 `PROXY` 映射为已有代理组。详见 [Clash 使用说明](clash/README.md)。
+
 https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash-rules.yaml
 
 这是规则配置片段，包含 `rule-providers` 和 `rules`，需合并到你已有的节点配置，并提供名为 `PROXY` 的策略组。它不是完整节点订阅。Clash 版采用国内及局域网直连、其余流量代理，不包含广告屏蔽；自定义规则优先。[合并方法、更新方式及策略说明](clash/README.md)。

@@ -1,7 +1,33 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildConfig, convertRule, validatePayload, providers } from '../scripts/sync-clash.mjs';
+import { buildConfig, buildCustomProxyProvider, buildProviderConfig, convertRule, validatePayload, providers } from '../scripts/sync-clash.mjs';
 const md = text => '```shadowrocket\n' + text + '\n```\n';
+
+test('independent provider removes policies, preserves options and excludes disabled rules', () => {
+  const input = md('DOMAIN-SUFFIX,example.com,PROXY\nDOMAIN-SUFFIX,example.com,PROXY\nIP-CIDR,2001:db8::/32,PROXY,no-resolve\n# DOMAIN,disabled.example,PROXY');
+  assert.deepEqual(buildCustomProxyProvider(input), { payload: [
+    'DOMAIN-SUFFIX,example.com', 'IP-CIDR6,2001:db8::/32,no-resolve',
+  ] });
+  assert.deepEqual(buildCustomProxyProvider(md('# no enabled custom rules')), { payload: [] });
+  for (const policy of ['DIRECT', 'REJECT']) {
+    assert.throws(() => buildProviderConfig(md(`DOMAIN,example.com,${policy}`)), /requires PROXY rules/);
+  }
+});
+
+test('provider fragment gives custom rules first priority with daily remote updates', () => {
+  const config = buildProviderConfig(md('DOMAIN,example.com,PROXY'));
+  assert.deepEqual(config.rules, [
+    'RULE-SET,custom-proxy,PROXY', 'RULE-SET,ls-private,DIRECT',
+    'RULE-SET,ls-direct,DIRECT', 'RULE-SET,ls-lancidr,DIRECT',
+    'RULE-SET,ls-cncidr,DIRECT', 'MATCH,PROXY',
+  ]);
+  const provider = config['rule-providers']['custom-proxy'];
+  assert.equal(provider.behavior, 'classical');
+  assert.equal(provider.format, 'yaml');
+  assert.equal(provider.interval, 86400);
+  assert.ok(provider.url.endsWith('/main/clash/providers/custom-proxy.yaml'));
+  assert.equal(new Set(Object.values(config['rule-providers']).map(p => p.path)).size, 5);
+});
 
 test('Clash preserves custom exceptions before domestic direct rules without ad blocking', () => {
   const config = buildConfig(md('DOMAIN,api.example.com,DIRECT\nDOMAIN-SUFFIX,example.com,PROXY'));
