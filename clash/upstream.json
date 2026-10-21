@@ -1,34 +1,34 @@
 {
   "repository": "https://github.com/Loyalsoldier/clash-rules.git",
-  "revision": "335129e29eb0b32bb783d4164bcce1d35b53d9e1",
+  "revision": "19e0246f8925dc979a18e19f90a9b630b521648e",
   "licenseRevision": "ab21f1c70d263c683990a0aed446ad3bf09a2961",
   "files": [
     {
       "name": "private",
       "behavior": "domain",
       "count": 132,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/335129e29eb0b32bb783d4164bcce1d35b53d9e1/private.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/19e0246f8925dc979a18e19f90a9b630b521648e/private.txt",
       "sha256": "49972ad557345dd1abe94a62892f06cbc5b4cef12bf8d7ac5beca454b5de9088"
     },
     {
       "name": "direct",
       "behavior": "domain",
-      "count": 110516,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/335129e29eb0b32bb783d4164bcce1d35b53d9e1/direct.txt",
-      "sha256": "887a3e47bd7d47629a62e6d7a55f420a960e83ee4cbcabe70bd8b4ef54ca912b"
+      "count": 110518,
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/19e0246f8925dc979a18e19f90a9b630b521648e/direct.txt",
+      "sha256": "3a49ab7a5daa5a92895c65bd5f7c71b61f4b9ea8c548bf73225c207c3bf06ceb"
     },
     {
       "name": "lancidr",
       "behavior": "ipcidr",
       "count": 18,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/335129e29eb0b32bb783d4164bcce1d35b53d9e1/lancidr.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/19e0246f8925dc979a18e19f90a9b630b521648e/lancidr.txt",
       "sha256": "82920b241dc328f1dc99849cf733ed8675a00a4ee0bdf64c892b332dfb7e1e2e"
     },
     {
       "name": "cncidr",
       "behavior": "ipcidr",
       "count": 10015,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/335129e29eb0b32bb783d4164bcce1d35b53d9e1/cncidr.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/19e0246f8925dc979a18e19f90a9b630b521648e/cncidr.txt",
       "sha256": "cb0b018100a93fcf98ac2ed7762cb5ad33291a8588998023eae23559153d419f"
     }
   ]
