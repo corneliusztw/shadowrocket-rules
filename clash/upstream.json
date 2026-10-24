@@ -1,35 +1,35 @@
 {
   "repository": "https://github.com/Loyalsoldier/clash-rules.git",
-  "revision": "540aa895d42a490b0906f807beb8cc809c4ec12f",
+  "revision": "bc9a903f65caee8381da1e0f8889607318c1e0ef",
   "licenseRevision": "ab21f1c70d263c683990a0aed446ad3bf09a2961",
   "files": [
     {
       "name": "private",
       "behavior": "domain",
       "count": 132,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/540aa895d42a490b0906f807beb8cc809c4ec12f/private.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/private.txt",
       "sha256": "49972ad557345dd1abe94a62892f06cbc5b4cef12bf8d7ac5beca454b5de9088"
     },
     {
       "name": "direct",
       "behavior": "domain",
-      "count": 110518,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/540aa895d42a490b0906f807beb8cc809c4ec12f/direct.txt",
-      "sha256": "3a49ab7a5daa5a92895c65bd5f7c71b61f4b9ea8c548bf73225c207c3bf06ceb"
+      "count": 110235,
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/direct.txt",
+      "sha256": "a41b282280fcf0d5c2ee7dac24482b996bb271bbc32b6513343015db3d9c391f"
     },
     {
       "name": "lancidr",
       "behavior": "ipcidr",
-      "count": 18,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/540aa895d42a490b0906f807beb8cc809c4ec12f/lancidr.txt",
-      "sha256": "82920b241dc328f1dc99849cf733ed8675a00a4ee0bdf64c892b332dfb7e1e2e"
+      "count": 28,
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/lancidr.txt",
+      "sha256": "a5e833af11e66049c1b1e06dbb47aa3e02df2cea7fcdebf46b59fefb6087525a"
     },
     {
       "name": "cncidr",
       "behavior": "ipcidr",
-      "count": 10013,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/540aa895d42a490b0906f807beb8cc809c4ec12f/cncidr.txt",
-      "sha256": "b7b603728c2e4334500e62e90e9a785d456234e56f87d9dd065f43d6c70bdaac"
+      "count": 10011,
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/cncidr.txt",
+      "sha256": "ce5122e6bb0e0a3a0738b34d6aebfdf6b521ad22b689b46149ae19249bfca0b3"
     }
   ]
 }
