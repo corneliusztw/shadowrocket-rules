@@ -1,34 +1,34 @@
 {
   "repository": "https://github.com/Loyalsoldier/clash-rules.git",
-  "revision": "bc9a903f65caee8381da1e0f8889607318c1e0ef",
+  "revision": "626486e13aea8158bbe52a7f900e3af86015f49f",
   "licenseRevision": "ab21f1c70d263c683990a0aed446ad3bf09a2961",
   "files": [
     {
       "name": "private",
       "behavior": "domain",
       "count": 132,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/private.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/626486e13aea8158bbe52a7f900e3af86015f49f/private.txt",
       "sha256": "49972ad557345dd1abe94a62892f06cbc5b4cef12bf8d7ac5beca454b5de9088"
     },
     {
       "name": "direct",
       "behavior": "domain",
-      "count": 110235,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/direct.txt",
-      "sha256": "a41b282280fcf0d5c2ee7dac24482b996bb271bbc32b6513343015db3d9c391f"
+      "count": 110241,
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/626486e13aea8158bbe52a7f900e3af86015f49f/direct.txt",
+      "sha256": "5b193df91a8c4cd56d67f7a749b4fa2f48c42c647d49d72612b2206f75fb4fa5"
     },
     {
       "name": "lancidr",
       "behavior": "ipcidr",
       "count": 28,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/lancidr.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/626486e13aea8158bbe52a7f900e3af86015f49f/lancidr.txt",
       "sha256": "a5e833af11e66049c1b1e06dbb47aa3e02df2cea7fcdebf46b59fefb6087525a"
     },
     {
       "name": "cncidr",
       "behavior": "ipcidr",
       "count": 10011,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/bc9a903f65caee8381da1e0f8889607318c1e0ef/cncidr.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/626486e13aea8158bbe52a7f900e3af86015f49f/cncidr.txt",
       "sha256": "ce5122e6bb0e0a3a0738b34d6aebfdf6b521ad22b689b46149ae19249bfca0b3"
     }
   ]
