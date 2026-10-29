@@ -1,7 +1,7 @@
 # Generated rules fragment; merge into an existing Clash/Mihomo config.
 # Requires a PROXY policy; contains no nodes or subscription credentials.
 # Source and license: clash/README.md. Custom rules take precedence.
-# Loyalsoldier release revision: e7c577d02025cc7768faad3ceafedf0c563a1ada
+# Loyalsoldier release revision: 430d8ba3689e1c5e968c4625630f32dac2c77cef
 rule-providers:
   ls-private:
     type: http
