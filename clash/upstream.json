@@ -1,35 +1,35 @@
 {
   "repository": "https://github.com/Loyalsoldier/clash-rules.git",
-  "revision": "9d654da5e1dfd7bc7e155072b6be85e13f831ecf",
+  "revision": "34b1f4f02b447b8ab5826f91d57d3acd1363d65b",
   "licenseRevision": "a3e81203072fad94597cae674260f3f19d55ee10",
   "files": [
     {
       "name": "private",
       "behavior": "domain",
       "count": 132,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/9d654da5e1dfd7bc7e155072b6be85e13f831ecf/private.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/34b1f4f02b447b8ab5826f91d57d3acd1363d65b/private.txt",
       "sha256": "49972ad557345dd1abe94a62892f06cbc5b4cef12bf8d7ac5beca454b5de9088"
     },
     {
       "name": "direct",
       "behavior": "domain",
       "count": 110189,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/9d654da5e1dfd7bc7e155072b6be85e13f831ecf/direct.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/34b1f4f02b447b8ab5826f91d57d3acd1363d65b/direct.txt",
       "sha256": "2ff0b806e1ba3f302ea14f2297230eb46bfb279412748db5c31cf6593013a5f3"
     },
     {
       "name": "lancidr",
       "behavior": "ipcidr",
       "count": 28,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/9d654da5e1dfd7bc7e155072b6be85e13f831ecf/lancidr.txt",
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/34b1f4f02b447b8ab5826f91d57d3acd1363d65b/lancidr.txt",
       "sha256": "a5e833af11e66049c1b1e06dbb47aa3e02df2cea7fcdebf46b59fefb6087525a"
     },
     {
       "name": "cncidr",
       "behavior": "ipcidr",
-      "count": 9662,
-      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/9d654da5e1dfd7bc7e155072b6be85e13f831ecf/cncidr.txt",
-      "sha256": "f245c3272352dd8b1a55114bac37d2b0767d9194d65d60a8e167ebcc8ee6943e"
+      "count": 9647,
+      "url": "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/34b1f4f02b447b8ab5826f91d57d3acd1363d65b/cncidr.txt",
+      "sha256": "c6342a2cff04a64e291c31c4052d914a6a8eeafd71793d25d7c64bb49c2e4aad"
     }
   ]
 }
