@@ -40,7 +40,7 @@
 
 | 顺序 | 内容 | 策略 |
 | --- | --- | --- |
-| 1 | Markdown 启用的自定义规则，按原顺序 | 当前为 PROXY；也支持明确填写 DIRECT / REJECT |
+| 1 | Markdown 启用的自定义规则，按原顺序 | 按条目使用 PROXY / DIRECT；也支持明确填写 REJECT |
 | 2 | private | DIRECT |
 | 3 | direct（上游国内 / 可直连域名列表） | DIRECT |
 | 4 | lancidr、cncidr（局域网及国内 IP） | DIRECT |
@@ -50,7 +50,7 @@
 
 不启用上游 `applications` 进程直连列表，以免进程规则带来额外直连行为；不额外依赖下载 GEOIP 数据库，使用同版本的 `lancidr` / `cncidr` 规则集做地址匹配。这与上游示例末尾的 GEOIP 数据来源可能存在差异。
 
-**不下载、不引用广告屏蔽列表，也不另外启用 Apple / iCloud 或其他服务的专用上游列表。** 广告请求按普通流量参与直连 / 代理分流。Shadowrocket 仍使用原来的无广告过滤上游；两个版本共享自定义规则，但不是逐条相同的配置。转换器保留对手动自定义 `REJECT` 的语法支持，当前启用的 81 条自定义规则全部为 `PROXY`。
+**不下载、不引用广告屏蔽列表，也不另外启用 Apple / iCloud 或其他服务的专用上游列表。** 广告请求按普通流量参与直连 / 代理分流。Shadowrocket 仍使用原来的无广告过滤上游；两个版本共享自定义规则，但不是逐条相同的配置。转换器保留对手动自定义 `REJECT` 的语法支持；SwingVision 自有域名、DNS 已确认的 API / CDN 原始主机及已识别生产存储桶使用 `DIRECT`，具体覆盖限制见 [自定义规则说明](../custom-rules.md#10-swingvision-视频上传直连)。
 
 ## 自定义规则转换范围
 

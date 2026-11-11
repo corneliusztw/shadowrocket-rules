@@ -119,6 +119,16 @@ rules:
   - DOMAIN-SUFFIX,paypal.com,PROXY
   - DOMAIN-SUFFIX,paypalobjects.com,PROXY
   - DOMAIN-SUFFIX,paypal.me,PROXY
+  - DOMAIN-SUFFIX,swing.vision,DIRECT
+  - DOMAIN-SUFFIX,swing.tennis,DIRECT
+  - DOMAIN,d2e4zd6qaudbjo.cloudfront.net,DIRECT
+  - DOMAIN,production-swing-api-1378744981.us-west-2.elb.amazonaws.com,DIRECT
+  - DOMAIN,production-swing-tennis.s3.us-west-2.amazonaws.com,DIRECT
+  - DOMAIN,production-swing-tennis.s3.amazonaws.com,DIRECT
+  - DOMAIN,production-swing-tennis.s3-us-west-2.amazonaws.com,DIRECT
+  - DOMAIN,production-swing-tennis.s3.dualstack.us-west-2.amazonaws.com,DIRECT
+  - DOMAIN,production-swing-tennis.s3-accelerate.amazonaws.com,DIRECT
+  - DOMAIN,production-swing-tennis.s3-accelerate.dualstack.amazonaws.com,DIRECT
   - RULE-SET,ls-private,DIRECT
   - RULE-SET,ls-direct,DIRECT
   - RULE-SET,ls-lancidr,DIRECT

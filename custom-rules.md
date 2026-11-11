@@ -1,6 +1,6 @@
-# 自定义 Shadowrocket 代理规则
+# 自定义 Shadowrocket 分流规则
 
-核查日期：2026-09-15。以下 `shadowrocket` 代码块中的非注释规则全部启用，策略均为 `PROXY`。
+初始核查日期：2026-09-15，后续补充日期见各节。以下 `shadowrocket` 代码块中的非注释规则全部启用；各条规则明确指定 `PROXY` 或 `DIRECT`。
 同步脚本按文档顺序提取这些代码块，合并到上游 `[Rule]` 最前面；后续直接编辑此文件即可。
 
 同一份规则也转换到 Clash / Mihomo 的 `clash-rules.yaml`，优先于 Loyalsoldier 上游规则集。Clash 使用方式及支持的转换类型见 [clash/README.md](clash/README.md)。
@@ -400,14 +400,60 @@ DOMAIN-SUFFIX,paypal.me,PROXY
 
 来源：[PayPal 支付链接与按钮排查文档](https://developer.paypal.com/payment-links-buttons/troubleshooting/)、[PayPal.Me 官方说明](https://www.paypal.com/us/cshelp/article/paypalme-frequently-asked-questions-help432)。
 
-## 10. 插件与连接器的范围边界
+## 10. SwingVision 视频上传直连
+
+本节补充及扩大检索日期：2026-11-11。将 SwingVision 自有域名、DNS 已确认的 API / CDN 原始主机及已识别的生产存储桶设为 `DIRECT`，优先于上游 Amazon / AWS 代理规则及最终代理规则。
+
+```shadowrocket
+# SwingVision 主站、API 和 CDN（包括 api.swing.tennis、cdn.swing.tennis）
+DOMAIN-SUFFIX,swing.vision,DIRECT
+DOMAIN-SUFFIX,swing.tennis,DIRECT
+# DNS 已确认的 CDN / API CNAME 目标：仅补充直接以原始主机名访问的情况
+DOMAIN,d2e4zd6qaudbjo.cloudfront.net,DIRECT
+DOMAIN,production-swing-api-1378744981.us-west-2.elb.amazonaws.com,DIRECT
+# 官方公开演示接口中实际出现的生产 S3 存储桶主机
+DOMAIN,production-swing-tennis.s3.us-west-2.amazonaws.com,DIRECT
+# 同一存储桶的标准、旧区域、双栈及传输加速地址：兼容补充，未实测手机上传
+DOMAIN,production-swing-tennis.s3.amazonaws.com,DIRECT
+DOMAIN,production-swing-tennis.s3-us-west-2.amazonaws.com,DIRECT
+DOMAIN,production-swing-tennis.s3.dualstack.us-west-2.amazonaws.com,DIRECT
+DOMAIN,production-swing-tennis.s3-accelerate.amazonaws.com,DIRECT
+DOMAIN,production-swing-tennis.s3-accelerate.dualstack.amazonaws.com,DIRECT
+```
+
+依据：[SwingVision 官网公开脚本](https://swing.vision/static/js/main.77cc9bd0.js) 指定 API 为 `api.swing.tennis`、资源 CDN 为 `cdn.swing.tennis`；[官网公开演示比赛接口](https://api.swing.tennis/v1/matches/sw1-eSX_5dE) 返回的视频地址使用该 CDN，队伍标志地址使用 `production-swing-tennis.s3.us-west-2.amazonaws.com`。这确认了生产桶的归属，**并不证明手机视频一定上传到这个桶，也不构成完整上传域名清单**。
+
+其余 S3 主机按同一桶和区域组合，属于兼容范围，格式依据 [AWS 虚拟主机地址](https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html)、[双栈端点](https://docs.aws.amazon.com/AmazonS3/latest/developerguide/dual-stack-endpoints.html) 和 [传输加速端点](https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html)。不将整个 `amazonaws.com`、`cloudfront.net` 或共享 S3 区域端点设为直连。
+
+本轮检索与核实结果：
+
+| 检索对象 | 证据与结论 | 规则处理 |
+| --- | --- | --- |
+| 官网公开脚本 | `getUploadPartUrls` 从 `/v1/video_review_requests/{id}/coach_video_upload_part_urls` 获取地址，分片通过 HTTP PUT 发往返回的 `url`；附件上传也使用 API 返回的 `upload_url` / `part_urls`。这些是网页教练视频及附件上传代码，不能直接当成 iOS 比赛备份的实现证明 | 保留 API 域名直连；URL 路径本身不是新的域名规则 |
+| 当前 DNS | `Resolve-DnsName -Type CNAME` 返回 `cdn.swing.tennis → d2e4zd6qaudbjo.cloudfront.net`，`api.swing.tennis` 和 `api.swing.vision → production-swing-api-1378744981.us-west-2.elb.amazonaws.com` | 新增两个精确主机作为兼容补充；通过原自有域名访问本来就已覆盖，CNAME 不意味着必须另加规则，也不能证明原始主机被手机直接请求 |
+| 当前公开演示接口 | 网球、匹克球和板式网球演示的 `video_url` 均使用 `cdn.swing.tennis`；部分队伍标志使用已识别的 S3 桶 | 保留现有范围；播放地址不能证明上传地址 |
+| 历史公开接口 | [2024-03 公开比赛列表存档](https://web.archive.org/web/20240319211411/https://api.swing.tennis/v1/matches?page=0&privacy_type=public&session_type=all&sport_type=tennis) 及 [2024-12 比赛接口存档](https://web.archive.org/web/20241220173517/https://api.swing.tennis/v1/matches/sw2-gc9XgBw) 仍出现同一 CDN / 生产桶，未发现额外视频存储主机 | 没有据此添加其他桶名 |
+| 证书记录 | [swing.tennis](https://crt.sh/?q=%25.swing.tennis) 和 [swing.vision](https://crt.sh/?q=%25.swing.vision) 的证书记录包含 API、CDN 及其他自有子域名，均落在现有两条后缀规则内 | 不重复添加已覆盖的子域名 |
+| AWS 使用情况 | [Mission 的 SwingVision 客户案例](https://www.missioncloud.com/swingvision) 确认使用 AWS / S3，但未公布手机上传域名或完整桶清单 | 不扩大到整个 AWS |
+
+另检索了中英文上传 / VPN / Shadowrocket / Clash 讨论、GitHub 仓库与 issues；未找到可核验的 iOS 上传抓包白名单。排除了同名项目和第三方 SwingVision 数据导入工具的自有上传服务。urlscan、grep.app 接口返回 HTTP 429，官网脚本引用的 source map 返回 404，未能据此补充证据。对已识别 S3 桶上的同一演示视频路径作匿名 HEAD 请求返回 403，不能据此确认该桶是否存放该视频。本轮未发起真实视频上传，也未取得手机端临时上传 URL。
+
+域名规则无法区分同一主机上的上传与下载，所以匹配上述域名的网页、API、播放及下载也会直连。使用 `DIRECT` 而非自动回退策略：命中后即使直连失败，也不会由这条规则自动改走代理。
+
+**验收：** 更新并启用配置，暂停旧上传连接后重新上传一小段视频，在连接记录中确认大流量上传的目标主机和命中策略为 `DIRECT`。如果仍出现 `PROXY`，需要按实际上传主机补充精确规则；若使用共享 S3 主机且桶名只在 HTTPS 路径中，现有域名规则无法单独识别该桶。未经手机上传记录核实，不能保证所有视频上传均已覆盖。
+
+**无上传记录时的可靠做法：** 按当前仅连接 Wi-Fi 后开始上传的使用方式，应在接入 Wi-Fi **之前**断开 Shadowrocket VPN，确认断开后再连接 Wi-Fi，并保持 VPN 关闭直到上传完成。“打开 App 时断开 VPN”不能覆盖连接 Wi-Fi 后触发的后台上传；“离开 App”也不代表上传结束。
+
+可用快捷指令的 [Wi-Fi 接入触发器](https://support.apple.com/en-ae/guide/shortcuts/apde31e9638b/ios)，选择任意网络或指定网络，接入后执行“设置 VPN → 断开 Shadowrocket”，减少手动操作；Apple 官方说明 [设置 VPN 动作支持连接、断开及按需连接设置](https://support.apple.com/en-gb/101583)。但该触发器在接入后才运行，不能保证先于上传开始，因此不作为零代理流量的保证。这会影响整台手机；若启用了按需连接或其他自动重连，上传期间也要避免其重新连接。
+
+## 11. 插件与连接器的范围边界
 
 - **本机发起的连接：** 浏览器 OAuth、CLI / IDE 的 MCP、本地插件下载等，只有流量经过 Shadowrocket 时才受本文件控制。第三方授权平台可能需要额外域名。
 - **云端发起的连接：** 例如 Claude 官方说明的自定义远程连接器由 Anthropic 云端访问 MCP 服务器；本机加代理规则不会改变云端到目标服务的网络。来源：[Claude 连接器说明](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)。
 - **任意插件：** GitHub、Google Drive、Slack、Notion、医院门户及自建 MCP 的依赖各不相同，没有能保证所有插件均可用的一组固定域名。这里补齐 AI 平台公共通道、安装源及明确命名的 Health 数据源；新增具体插件时依据该插件的实际端点扩充。
 - **流式及语音：** 规则可匹配域名，但无法让节点自动获得 WebSocket 或 UDP 支持。OpenAI 官方另列 ChatGPT Voice 的 UDP 3478 与动态 IP 清单；本文件没有静态复制这些 IP，不能声称覆盖所有直接 IP 语音连接。参见第 5.1 节官方网络文档。
 
-## 11. 使用与验证
+## 12. 使用与验证
 
 1. 将此文件提交到 `main`，工作流会生成 `sr_cnip.conf`；也可本地执行 `node --test` 和 `node scripts/sync.mjs`。
 2. 在 Shadowrocket 更新并启用该远程配置，使用按配置分流的模式；确认 `PROXY` 对应可用节点。
