@@ -55,11 +55,12 @@ export function buildConfig(markdown) {
 
 // Classical providers carry match conditions only; the caller supplies the policy.
 // Fail explicitly on mixed policies rather than silently routing DIRECT/REJECT as PROXY.
-export function buildCustomProxyProvider(markdown) {
-  const payload = [...new Set(customRules(markdown).map(convertRule))].map(rule => {
+export function buildCustomProxyProvider(markdown, selectedPolicy = 'PROXY') {
+  if (!['PROXY', 'DIRECT'].includes(selectedPolicy)) throw new Error('Unsupported provider policy');
+  const payload = [...new Set(customRules(markdown).map(convertRule))].flatMap(rule => {
     const [type, target, policy, ...options] = rule.split(',');
-    if (policy !== 'PROXY') throw new Error(`Independent custom-proxy provider requires PROXY rules; split other policies into separate rule sets: ${rule}`);
-    return [type, target, ...options].join(',');
+    if (!['PROXY', 'DIRECT'].includes(policy)) throw new Error(`Independent providers require PROXY or DIRECT rules: ${rule}`);
+    return policy === selectedPolicy ? [[type, target, ...options].join(',')] : [];
   });
   return { payload };
 }
@@ -67,15 +68,28 @@ export function buildCustomProxyProvider(markdown) {
 export function buildProviderConfig(markdown) {
   buildCustomProxyProvider(markdown);
   const config = buildConfig(markdown);
+  const policies = [];
+  for (const rule of customRules(markdown).map(convertRule)) {
+    const policy = rule.split(',')[2];
+    if (policies.at(-1) === policy) continue;
+    // A single provider per policy cannot preserve interleaved policy groups.
+    if (policies.includes(policy)) throw new Error('Interleaved custom policies require separate ordered rule sets');
+    policies.push(policy);
+  }
   config['rule-providers'] = {
     'custom-proxy': {
       type: 'http', behavior: 'classical', format: 'yaml',
       url: `${publicBase}/clash/providers/custom-proxy.yaml`,
       path: './ruleset/shadowrocket-rules/custom-proxy.yaml', interval: 86400,
     },
+    'custom-direct': {
+      type: 'http', behavior: 'classical', format: 'yaml',
+      url: `${publicBase}/clash/providers/custom-direct.yaml`,
+      path: './ruleset/shadowrocket-rules/custom-direct.yaml', interval: 86400,
+    },
     ...config['rule-providers'],
   };
-  config.rules = ['RULE-SET,custom-proxy,PROXY', ...config.rules.slice(-providers.length - 1)];
+  config.rules = [...policies.map(policy => `RULE-SET,custom-${policy.toLowerCase()},${policy}`), ...config.rules.slice(-providers.length - 1)];
   return config;
 }
 
@@ -120,6 +134,7 @@ async function main() {
   const markdown = await readFile(resolve(root, 'custom-rules.md'), 'utf8');
   const config = buildConfig(markdown);
   const customProvider = buildCustomProxyProvider(markdown);
+  const directProvider = buildCustomProxyProvider(markdown, 'DIRECT');
   const providerConfig = buildProviderConfig(markdown);
   const refs = execFileSync('git', ['ls-remote', upstreamRepo, 'refs/heads/release', 'refs/heads/master'], { encoding: 'utf8', cwd: root });
   const shaFor = branch => {
@@ -141,6 +156,7 @@ async function main() {
   if (!license.includes('GNU GENERAL PUBLIC LICENSE')) throw new Error('Unexpected upstream license');
   // Publish only after every source and the generated config have passed validation.
   await save('clash/providers/custom-proxy.yaml', '# Generated from custom-rules.md; do not edit.\n# Match conditions only; select the proxy policy in RULE-SET.\n' + YAML.stringify(customProvider));
+  await save('clash/providers/custom-direct.yaml', '# Generated from custom-rules.md; do not edit.\n# Match conditions only; use DIRECT in RULE-SET.\n' + YAML.stringify(directProvider));
   await save('clash-verge-rules.yaml', '# Generated remote rule-provider fragment for Clash Verge / Mihomo.\n# Merge with existing nodes; requires a PROXY policy.\n' + YAML.stringify(providerConfig));
   for (const snapshot of snapshots) await save(`clash/providers/${snapshot.name}.yaml`, snapshot.text);
   await save('clash/LICENSE-Loyalsoldier', license);

@@ -6,7 +6,7 @@
 
 ## Clash / Mihomo 规则地址
 
-Clash Verge 需要自动同步自定义规则时，使用 [clash-verge-rules.yaml](clash-verge-rules.yaml) 作为订阅扩展配置；它引用独立的 [custom-proxy.yaml](clash/providers/custom-proxy.yaml)，客户端每隔 24 小时拉取。将片段中的 `PROXY` 映射为已有代理组。详见 [Clash 使用说明](clash/README.md)。
+Clash Verge 需要自动同步自定义规则时，使用 [clash-verge-rules.yaml](clash-verge-rules.yaml) 作为订阅扩展配置；它引用独立的 [custom-proxy.yaml](clash/providers/custom-proxy.yaml) 和 [custom-direct.yaml](clash/providers/custom-direct.yaml)，客户端每隔 24 小时拉取。将片段中的 `PROXY` 映射为已有代理组。详见 [Clash 使用说明](clash/README.md)。
 
 https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash-rules.yaml
 
@@ -24,7 +24,7 @@ https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/sr_cnip.c
 
 已在 [custom-rules.md](custom-rules.md) 分组启用 Apple Intelligence / Siri、ChatGPT / Codex / ChatGPT Health、Claude / Claude Code、Gemini / AI Studio / Code Assist、Meta AI、Google Health / Fitbit、嘉信理财 / thinkorswim 和 TradingView 的代理规则，附有域名用途、官方来源及可选规则。插件覆盖公共通道与安装依赖，第三方授权和自建 MCP 仍按实际服务扩充。
 
-另已添加 SwingVision 自有域名、DNS 已确认的 API / CDN 原始主机及已识别生产存储桶的直连规则，具体覆盖范围、检索证据和上传验证步骤见 [SwingVision 视频上传直连](custom-rules.md#10-swingvision-视频上传直连)。手机端完整上传域名仍需结合连接记录核实。
+另已添加 SwingVision 自有域名、DNS 已确认的 API / CDN 原始主机及已识别生产存储桶的直连规则，具体覆盖范围、检索证据和上传验证步骤见 [SwingVision 全服务直连](custom-rules.md#10-swingvision-全服务直连)。手机端完整上传域名仍需结合连接记录核实。
 
 编辑其中的 `shadowrocket` 代码块即可修改；以 `#` 开头的可选规则默认不生效。提交到 `main` 后立即触发同步，也可以在 Actions → Sync Shadowrocket and Clash rules → Run workflow 手动运行。
 

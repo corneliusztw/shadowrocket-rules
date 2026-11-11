@@ -400,9 +400,9 @@ DOMAIN-SUFFIX,paypal.me,PROXY
 
 来源：[PayPal 支付链接与按钮排查文档](https://developer.paypal.com/payment-links-buttons/troubleshooting/)、[PayPal.Me 官方说明](https://www.paypal.com/us/cshelp/article/paypalme-frequently-asked-questions-help432)。
 
-## 10. SwingVision 视频上传直连
+## 10. SwingVision 全服务直连
 
-本节补充及扩大检索日期：2026-11-11。将 SwingVision 自有域名、DNS 已确认的 API / CDN 原始主机及已识别的生产存储桶设为 `DIRECT`，优先于上游 Amazon / AWS 代理规则及最终代理规则。
+本节补充及扩大检索日期：2026-11-11。按用户要求，所有可确认属于 SwingVision 的服务连接均使用直连，包括主站、认证、API、上传、下载、播放及 CDN，不限视频上传。将 SwingVision 自有域名、DNS 已确认的 API / CDN 原始主机及已识别的生产存储桶设为 `DIRECT`，优先于上游 Amazon / AWS 代理规则及最终代理规则。
 
 ```shadowrocket
 # SwingVision 主站、API 和 CDN（包括 api.swing.tennis、cdn.swing.tennis）
@@ -445,6 +445,8 @@ DOMAIN,production-swing-tennis.s3-accelerate.dualstack.amazonaws.com,DIRECT
 **无上传记录时的可靠做法：** 按当前仅连接 Wi-Fi 后开始上传的使用方式，应在接入 Wi-Fi **之前**断开 Shadowrocket VPN，确认断开后再连接 Wi-Fi，并保持 VPN 关闭直到上传完成。“打开 App 时断开 VPN”不能覆盖连接 Wi-Fi 后触发的后台上传；“离开 App”也不代表上传结束。
 
 可用快捷指令的 [Wi-Fi 接入触发器](https://support.apple.com/en-ae/guide/shortcuts/apde31e9638b/ios)，选择任意网络或指定网络，接入后执行“设置 VPN → 断开 Shadowrocket”，减少手动操作；Apple 官方说明 [设置 VPN 动作支持连接、断开及按需连接设置](https://support.apple.com/en-gb/101583)。但该触发器在接入后才运行，不能保证先于上传开始，因此不作为零代理流量的保证。这会影响整台手机；若启用了按需连接或其他自动重连，上传期间也要避免其重新连接。
+
+每周维护：已在 Codex 当前会话创建“每周扫描 SwingVision 直连域名”任务，每周一北京时间 10:00 检索新增服务域名。确认归属、去除已覆盖项后补充 DIRECT 规则及来源，生成全部配置和独立规则集，通过测试后自动 commit 并 push 到 GitHub main；没有实质变化时不创建提交。此任务由本地 Codex 调度，与 GitHub 每日上游同步分开，运行时需要电脑及应用保持运行。
 
 ## 11. 插件与连接器的范围边界
 

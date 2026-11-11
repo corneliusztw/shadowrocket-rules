@@ -1,6 +1,6 @@
 # Clash / Mihomo 使用说明
 
-## Clash Verge 每天自动更新自定义代理规则
+## Clash Verge 每天自动更新自定义分流规则
 
 使用 [clash-verge-rules.yaml](../clash-verge-rules.yaml) 作为订阅的「扩展配置」。将其中 `RULE-SET` 和 `MATCH` 的 `PROXY` 策略映射成已有的代理组名称，然后保存并重新激活订阅。该片段保留节点和 DNS，替换订阅的分流规则。
 
@@ -8,7 +8,9 @@
 
 自定义规则集优先于四个直连规则集；这些规则集均由内核每隔 24 小时拉取，不要求刷新机场订阅或重复粘贴扩展配置。GitHub 仍每天北京时间 09:00 同步，修改 `custom-rules.md` 后也会触发同步。内核需要运行且能访问 GitHub；24 小时更新间隔并不代表每天 09:00 准点拉取。
 
-此独立规则集专用于当前 Markdown 的 `PROXY` 规则。空规则会生成 `payload: []`；注释和重复规则会移除。若新增 `DIRECT` 或 `REJECT`，独立规则集生成会明确报错，保留已发布版本，避免误改成代理策略；需先设计对应的独立策略规则集及匹配顺序。原 `clash-rules.yaml` 中的内联规则转换函数仍支持这些策略。
+直连规则独立发布为 [custom-direct.yaml](providers/custom-direct.yaml)，通过 `RULE-SET,custom-direct,DIRECT` 使用，按同样的 24 小时间隔更新。已有用户需先重新应用一次新版 `clash-verge-rules.yaml`，才能启用这个新增规则集；不要将 DIRECT 替换成代理组。
+
+两个独立规则集分别包含 Markdown 的 `PROXY` 和 `DIRECT` 匹配条件，按源文件中连续策略分组的顺序引用，均优先于上游规则集。空规则生成 `payload: []`；注释和重复项移除。`REJECT` 或同一策略分成多个交错分组时生成器明确报错，以免改变匹配优先级；内联版 `clash-rules.yaml` 仍按原顺序支持这些策略。
 
 ## 文件和订阅地址
 
@@ -50,7 +52,7 @@
 
 不启用上游 `applications` 进程直连列表，以免进程规则带来额外直连行为；不额外依赖下载 GEOIP 数据库，使用同版本的 `lancidr` / `cncidr` 规则集做地址匹配。这与上游示例末尾的 GEOIP 数据来源可能存在差异。
 
-**不下载、不引用广告屏蔽列表，也不另外启用 Apple / iCloud 或其他服务的专用上游列表。** 广告请求按普通流量参与直连 / 代理分流。Shadowrocket 仍使用原来的无广告过滤上游；两个版本共享自定义规则，但不是逐条相同的配置。转换器保留对手动自定义 `REJECT` 的语法支持；SwingVision 自有域名、DNS 已确认的 API / CDN 原始主机及已识别生产存储桶使用 `DIRECT`，具体覆盖限制见 [自定义规则说明](../custom-rules.md#10-swingvision-视频上传直连)。
+**不下载、不引用广告屏蔽列表，也不另外启用 Apple / iCloud 或其他服务的专用上游列表。** 广告请求按普通流量参与直连 / 代理分流。Shadowrocket 仍使用原来的无广告过滤上游；两个版本共享自定义规则，但不是逐条相同的配置。转换器保留对手动自定义 `REJECT` 的语法支持；SwingVision 自有域名、DNS 已确认的 API / CDN 原始主机及已识别生产存储桶使用 `DIRECT`，具体覆盖限制见 [自定义规则说明](../custom-rules.md#10-swingvision-全服务直连)。
 
 ## 自定义规则转换范围
 

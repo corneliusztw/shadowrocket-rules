@@ -1,0 +1,13 @@
+# Generated from custom-rules.md; do not edit.
+# Match conditions only; use DIRECT in RULE-SET.
+payload:
+  - DOMAIN-SUFFIX,swing.vision
+  - DOMAIN-SUFFIX,swing.tennis
+  - DOMAIN,d2e4zd6qaudbjo.cloudfront.net
+  - DOMAIN,production-swing-api-1378744981.us-west-2.elb.amazonaws.com
+  - DOMAIN,production-swing-tennis.s3.us-west-2.amazonaws.com
+  - DOMAIN,production-swing-tennis.s3.amazonaws.com
+  - DOMAIN,production-swing-tennis.s3-us-west-2.amazonaws.com
+  - DOMAIN,production-swing-tennis.s3.dualstack.us-west-2.amazonaws.com
+  - DOMAIN,production-swing-tennis.s3-accelerate.amazonaws.com
+  - DOMAIN,production-swing-tennis.s3-accelerate.dualstack.amazonaws.com

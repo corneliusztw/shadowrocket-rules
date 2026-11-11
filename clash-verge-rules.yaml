@@ -8,6 +8,13 @@ rule-providers:
     url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/custom-proxy.yaml
     path: ./ruleset/shadowrocket-rules/custom-proxy.yaml
     interval: 86400
+  custom-direct:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/corneliusztw/shadowrocket-rules/main/clash/providers/custom-direct.yaml
+    path: ./ruleset/shadowrocket-rules/custom-direct.yaml
+    interval: 86400
   ls-private:
     type: http
     behavior: domain
@@ -34,6 +41,7 @@ rule-providers:
     interval: 86400
 rules:
   - RULE-SET,custom-proxy,PROXY
+  - RULE-SET,custom-direct,DIRECT
   - RULE-SET,ls-private,DIRECT
   - RULE-SET,ls-direct,DIRECT
   - RULE-SET,ls-lancidr,DIRECT

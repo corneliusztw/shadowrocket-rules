@@ -9,9 +9,7 @@ test('independent provider removes policies, preserves options and excludes disa
     'DOMAIN-SUFFIX,example.com', 'IP-CIDR6,2001:db8::/32,no-resolve',
   ] });
   assert.deepEqual(buildCustomProxyProvider(md('# no enabled custom rules')), { payload: [] });
-  for (const policy of ['DIRECT', 'REJECT']) {
-    assert.throws(() => buildProviderConfig(md(`DOMAIN,example.com,${policy}`)), /requires PROXY rules/);
-  }
+  assert.throws(() => buildProviderConfig(md('DOMAIN,example.com,REJECT')), /require PROXY or DIRECT rules/);
 });
 
 test('provider fragment gives custom rules first priority with daily remote updates', () => {
@@ -26,7 +24,17 @@ test('provider fragment gives custom rules first priority with daily remote upda
   assert.equal(provider.format, 'yaml');
   assert.equal(provider.interval, 86400);
   assert.ok(provider.url.endsWith('/main/clash/providers/custom-proxy.yaml'));
-  assert.equal(new Set(Object.values(config['rule-providers']).map(p => p.path)).size, 5);
+  assert.equal(new Set(Object.values(config['rule-providers']).map(p => p.path)).size, 6);
+});
+
+test('independent providers separate direct traffic and preserve policy precedence', () => {
+  const input = md('DOMAIN,api.example.com,DIRECT\nDOMAIN-SUFFIX,example.com,PROXY');
+  assert.deepEqual(buildCustomProxyProvider(input), { payload: ['DOMAIN-SUFFIX,example.com'] });
+  assert.deepEqual(buildCustomProxyProvider(input, 'DIRECT'), { payload: ['DOMAIN,api.example.com'] });
+  const config = buildProviderConfig(input);
+  assert.deepEqual(config.rules.slice(0, 2), ['RULE-SET,custom-direct,DIRECT', 'RULE-SET,custom-proxy,PROXY']);
+  assert.ok(config['rule-providers']['custom-direct'].url.endsWith('/custom-direct.yaml'));
+  assert.throws(() => buildProviderConfig(md('DOMAIN,a.example,DIRECT\nDOMAIN,b.example,PROXY\nDOMAIN,c.example,DIRECT')), /Interleaved/);
 });
 
 test('Clash preserves custom exceptions before domestic direct rules without ad blocking', () => {
