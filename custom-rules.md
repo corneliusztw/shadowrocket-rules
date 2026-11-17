@@ -448,14 +448,48 @@ DOMAIN,production-swing-tennis.s3-accelerate.dualstack.amazonaws.com,DIRECT
 
 每周维护：已在 Codex 当前会话创建“每周扫描 SwingVision 直连域名”任务，每周一北京时间 10:00 检索新增服务域名。确认归属、去除已覆盖项后补充 DIRECT 规则及来源，生成全部配置和独立规则集，通过测试后自动 commit 并 push 到 GitHub main；没有实质变化时不创建提交。此任务由本地 Codex 调度，与 GitHub 每日上游同步分开，运行时需要电脑及应用保持运行。
 
-## 11. 插件与连接器的范围边界
+## 11. uSMART / 盈立证券直连
+
+本节补充日期：2026-11-17。按用户要求，已确认的 uSMART 官网、地区入口、接口、下载及资源地址使用 `DIRECT`，优先于上游分流和最终代理规则。后缀规则同时覆盖根域名及全部子域名。
+
+```shadowrocket
+# 全球站、香港 / 新加坡站及旧版入口
+DOMAIN-SUFFIX,usmartglobal.com,DIRECT
+DOMAIN-SUFFIX,usmartsecurities.com,DIRECT
+DOMAIN-SUFFIX,usmart.hk,DIRECT
+DOMAIN-SUFFIX,usmart.sg,DIRECT
+DOMAIN-SUFFIX,usmartsg.com,DIRECT
+DOMAIN-SUFFIX,usmart66.com,DIRECT
+DOMAIN-SUFFIX,usmart8.com,DIRECT
+# 官网链接的美国站和集团站
+DOMAIN-SUFFIX,usmartcapital.com,DIRECT
+DOMAIN-SUFFIX,usmartgroup.com,DIRECT
+# 官网脚本引用的接口、移动端资源和统计服务
+DOMAIN-SUFFIX,yxzq.com,DIRECT
+# 官网引用的专用客服和 App 跳转入口
+DOMAIN,yxzq.udesk.cn,DIRECT
+DOMAIN,usmarthk.onelink.me,DIRECT
+# 官网及下载脚本中实际出现的静态资源和下载桶，仅匹配具体主机
+DOMAIN,web-static-prd-1257884527.cos.accelerate.myqcloud.com,DIRECT
+DOMAIN,web-static-prd-hongkong-1437675564.cos.accelerate.myqcloud.com,DIRECT
+DOMAIN,web-static-sg-prd-singapore-1437682127.cos.accelerate.myqcloud.com,DIRECT
+DOMAIN,web-static-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com,DIRECT
+DOMAIN,jy-common-prd-1257884527.cos.ap-guangzhou.myqcloud.com,DIRECT
+DOMAIN,jy-common-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com,DIRECT
+```
+
+依据：[全球站下载页](https://www.usmartglobal.com/download)、[香港官网](https://hk.usmartglobal.com/zh-hk)、[新加坡官网](https://www.usmart.sg/)、[全球站页面脚本](https://www.usmartglobal.com/_nuxt/8d147ed.js)、[全球站接口配置脚本](https://www.usmartglobal.com/_nuxt/867a928.js)和[香港站应用脚本](https://hk.usmartglobal.com/hk/assets/js/app.109cda.js)。其中 `jy.yxzq.com`、`jy.usmartsg.com`、`hz.usmartsg.com`、`m.usmartsg.com`、`m-dl.yxzq.com` 已被相应后缀覆盖；`usmart8.com` 是香港站脚本引用的兼容入口。官方 [Open API 文档](https://api-doc.usmart.sg/) 也由 `usmart.sg` 覆盖。
+
+这些是公开页面和脚本可确认的地址，不是手机抓包得出的完整交易依赖清单。没有将整个 `myqcloud.com`、`udesk.cn`、`onelink.me` 或共享统计 / 客服平台设为直连。更新配置后，在连接记录中检查登录、行情及日常使用时的目标主机与 `DIRECT` 命中情况；若仍有 uSMART 连接走代理，按实际主机补充。命中 `DIRECT` 后不会因直连失败自动回退到代理。
+
+## 12. 插件与连接器的范围边界
 
 - **本机发起的连接：** 浏览器 OAuth、CLI / IDE 的 MCP、本地插件下载等，只有流量经过 Shadowrocket 时才受本文件控制。第三方授权平台可能需要额外域名。
 - **云端发起的连接：** 例如 Claude 官方说明的自定义远程连接器由 Anthropic 云端访问 MCP 服务器；本机加代理规则不会改变云端到目标服务的网络。来源：[Claude 连接器说明](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)。
 - **任意插件：** GitHub、Google Drive、Slack、Notion、医院门户及自建 MCP 的依赖各不相同，没有能保证所有插件均可用的一组固定域名。这里补齐 AI 平台公共通道、安装源及明确命名的 Health 数据源；新增具体插件时依据该插件的实际端点扩充。
 - **流式及语音：** 规则可匹配域名，但无法让节点自动获得 WebSocket 或 UDP 支持。OpenAI 官方另列 ChatGPT Voice 的 UDP 3478 与动态 IP 清单；本文件没有静态复制这些 IP，不能声称覆盖所有直接 IP 语音连接。参见第 5.1 节官方网络文档。
 
-## 12. 使用与验证
+## 13. 使用与验证
 
 1. 将此文件提交到 `main`，工作流会生成 `sr_cnip.conf`；也可本地执行 `node --test` 和 `node scripts/sync.mjs`。
 2. 在 Shadowrocket 更新并启用该远程配置，使用按配置分流的模式；确认 `PROXY` 对应可用节点。

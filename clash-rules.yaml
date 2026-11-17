@@ -129,6 +129,24 @@ rules:
   - DOMAIN,production-swing-tennis.s3.dualstack.us-west-2.amazonaws.com,DIRECT
   - DOMAIN,production-swing-tennis.s3-accelerate.amazonaws.com,DIRECT
   - DOMAIN,production-swing-tennis.s3-accelerate.dualstack.amazonaws.com,DIRECT
+  - DOMAIN-SUFFIX,usmartglobal.com,DIRECT
+  - DOMAIN-SUFFIX,usmartsecurities.com,DIRECT
+  - DOMAIN-SUFFIX,usmart.hk,DIRECT
+  - DOMAIN-SUFFIX,usmart.sg,DIRECT
+  - DOMAIN-SUFFIX,usmartsg.com,DIRECT
+  - DOMAIN-SUFFIX,usmart66.com,DIRECT
+  - DOMAIN-SUFFIX,usmart8.com,DIRECT
+  - DOMAIN-SUFFIX,usmartcapital.com,DIRECT
+  - DOMAIN-SUFFIX,usmartgroup.com,DIRECT
+  - DOMAIN-SUFFIX,yxzq.com,DIRECT
+  - DOMAIN,yxzq.udesk.cn,DIRECT
+  - DOMAIN,usmarthk.onelink.me,DIRECT
+  - DOMAIN,web-static-prd-1257884527.cos.accelerate.myqcloud.com,DIRECT
+  - DOMAIN,web-static-prd-hongkong-1437675564.cos.accelerate.myqcloud.com,DIRECT
+  - DOMAIN,web-static-sg-prd-singapore-1437682127.cos.accelerate.myqcloud.com,DIRECT
+  - DOMAIN,web-static-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com,DIRECT
+  - DOMAIN,jy-common-prd-1257884527.cos.ap-guangzhou.myqcloud.com,DIRECT
+  - DOMAIN,jy-common-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com,DIRECT
   - RULE-SET,ls-private,DIRECT
   - RULE-SET,ls-direct,DIRECT
   - RULE-SET,ls-lancidr,DIRECT

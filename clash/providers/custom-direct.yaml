@@ -11,3 +11,21 @@ payload:
   - DOMAIN,production-swing-tennis.s3.dualstack.us-west-2.amazonaws.com
   - DOMAIN,production-swing-tennis.s3-accelerate.amazonaws.com
   - DOMAIN,production-swing-tennis.s3-accelerate.dualstack.amazonaws.com
+  - DOMAIN-SUFFIX,usmartglobal.com
+  - DOMAIN-SUFFIX,usmartsecurities.com
+  - DOMAIN-SUFFIX,usmart.hk
+  - DOMAIN-SUFFIX,usmart.sg
+  - DOMAIN-SUFFIX,usmartsg.com
+  - DOMAIN-SUFFIX,usmart66.com
+  - DOMAIN-SUFFIX,usmart8.com
+  - DOMAIN-SUFFIX,usmartcapital.com
+  - DOMAIN-SUFFIX,usmartgroup.com
+  - DOMAIN-SUFFIX,yxzq.com
+  - DOMAIN,yxzq.udesk.cn
+  - DOMAIN,usmarthk.onelink.me
+  - DOMAIN,web-static-prd-1257884527.cos.accelerate.myqcloud.com
+  - DOMAIN,web-static-prd-hongkong-1437675564.cos.accelerate.myqcloud.com
+  - DOMAIN,web-static-sg-prd-singapore-1437682127.cos.accelerate.myqcloud.com
+  - DOMAIN,web-static-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com
+  - DOMAIN,jy-common-prd-1257884527.cos.ap-guangzhou.myqcloud.com
+  - DOMAIN,jy-common-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com
