@@ -461,6 +461,12 @@ DOMAIN-SUFFIX,usmart.sg,DIRECT
 DOMAIN-SUFFIX,usmartsg.com,DIRECT
 DOMAIN-SUFFIX,usmart66.com,DIRECT
 DOMAIN-SUFFIX,usmart8.com,DIRECT
+# 官方联系方式使用的域名，以及 App 生产配置中的资讯资源域名
+DOMAIN-SUFFIX,usmarthk.com,DIRECT
+DOMAIN-SUFFIX,usmartfinance.com,DIRECT
+# 官方 App 内的移动页面和 BeeRich 内容入口
+DOMAIN-SUFFIX,ylzqhk.com,DIRECT
+DOMAIN,global.beerichinvest.com,DIRECT
 # 官网链接的美国站和集团站
 DOMAIN-SUFFIX,usmartcapital.com,DIRECT
 DOMAIN-SUFFIX,usmartgroup.com,DIRECT
@@ -476,11 +482,53 @@ DOMAIN,web-static-sg-prd-singapore-1437682127.cos.accelerate.myqcloud.com,DIRECT
 DOMAIN,web-static-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com,DIRECT
 DOMAIN,jy-common-prd-1257884527.cos.ap-guangzhou.myqcloud.com,DIRECT
 DOMAIN,jy-common-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com,DIRECT
+# 香港下载页及官方行情文档引用的其他专用资源桶
+DOMAIN,hq-prod-news-server-hongkong-1319870113.cos.accelerate.myqcloud.com,DIRECT
+DOMAIN,pc-usmart-prd-hk-1319870113.cos.ap-hongkong.myqcloud.com,DIRECT
+DOMAIN,jy-common-sg-prd-singapore-1437682127.cos.accelerate.myqcloud.com,DIRECT
+DOMAIN,jy-common-prd-hongkong-1257884527.cos.ap-hongkong.myqcloud.com,DIRECT
+# 官方 App 生产配置中的交易、行情、期权行情、资讯和文件备用 IP
+# shortcut: 固定 IP 来自 Android 11.0.3 内置生产配置，线路变更或 iOS 日志出现新 IP 时重新核实
+IP-CIDR,139.199.139.211/32,DIRECT,no-resolve
+IP-CIDR,124.156.123.52/32,DIRECT,no-resolve
+IP-CIDR,139.199.43.245/32,DIRECT,no-resolve
+IP-CIDR,120.77.150.199/32,DIRECT,no-resolve
+IP-CIDR,47.240.105.222/32,DIRECT,no-resolve
+IP-CIDR,120.77.252.10/32,DIRECT,no-resolve
+IP-CIDR,47.112.163.19/32,DIRECT,no-resolve
+IP-CIDR,3.33.131.232/32,DIRECT,no-resolve
+IP-CIDR,47.242.182.40/32,DIRECT,no-resolve
+IP-CIDR,139.199.139.236/32,DIRECT,no-resolve
+IP-CIDR,124.156.123.105/32,DIRECT,no-resolve
+IP-CIDR,139.199.139.235/32,DIRECT,no-resolve
+IP-CIDR,124.156.123.104/32,DIRECT,no-resolve
+# 2026-11-17 行情线路接口实时返回的 TCP 主节点（端口 21000 / 26000）
+IP-CIDR,47.239.19.15/32,DIRECT,no-resolve
+IP-CIDR,47.242.186.255/32,DIRECT,no-resolve
 ```
 
 依据：[全球站下载页](https://www.usmartglobal.com/download)、[香港官网](https://hk.usmartglobal.com/zh-hk)、[新加坡官网](https://www.usmart.sg/)、[全球站页面脚本](https://www.usmartglobal.com/_nuxt/8d147ed.js)、[全球站接口配置脚本](https://www.usmartglobal.com/_nuxt/867a928.js)和[香港站应用脚本](https://hk.usmartglobal.com/hk/assets/js/app.109cda.js)。其中 `jy.yxzq.com`、`jy.usmartsg.com`、`hz.usmartsg.com`、`m.usmartsg.com`、`m-dl.yxzq.com` 已被相应后缀覆盖；`usmart8.com` 是香港站脚本引用的兼容入口。官方 [Open API 文档](https://api-doc.usmart.sg/) 也由 `usmart.sg` 覆盖。
 
-这些是公开页面和脚本可确认的地址，不是手机抓包得出的完整交易依赖清单。没有将整个 `myqcloud.com`、`udesk.cn`、`onelink.me` 或共享统计 / 客服平台设为直连。更新配置后，在连接记录中检查登录、行情及日常使用时的目标主机与 `DIRECT` 命中情况；若仍有 uSMART 连接走代理，按实际主机补充。命中 `DIRECT` 后不会因直连失败自动回退到代理。
+**2026-11-17 行情连接补充：** 用户反馈开启 Shadowrocket 后行情不可用。进一步检查[香港官方下载页](https://hk.usmartglobal.com/zh-hk/download)所发布的 [Android 11.0.3 安装包](https://hk-static.usmartglobal.com/admin/app-version-file/2026-11-10/cfbba963-ea57-4c2b-a5c6-1b0b7ca51975/usmart-client-11.0.3-202611102004-release.apk)，通过 HTTP Range 读取 ZIP 条目并解压 `assets/PATH_SETTING_PRD`，没有安装或执行 App。该文件明确列出域名与备用 IP，上一版仅有域名规则，无法覆盖没有域名映射的纯 IP 连接。这是已确认的规则缺口，尚不能认定为用户手机故障的唯一原因。
+
+| 内置生产配置项 | 域名 | 备用 IP（去重前，均为精确 `/32` 直连） |
+| --- | --- | --- |
+| `jy_center` | `jy.yxzq.com` | `139.199.139.211`、`124.156.123.52` |
+| `quote_info_center` | `hz.yxzq.com` | `139.199.43.245`、`124.156.123.52`、`120.77.150.199`、`47.240.105.222`、`120.77.252.10` |
+| `option_quote_info_center` | `hz.usmartsg.com` | `47.112.163.19`、`3.33.131.232`、`47.242.182.40` |
+| `zx_center` | `hz.yxzq.com` | `139.199.139.236`、`124.156.123.105` |
+| `wj_center` | `wj.yxzq.com` | `139.199.139.235`、`124.156.123.104` |
+| `img` | `news-hk.usmartfinance.com` | 无 |
+
+`usmarthk.com` 见[官方联系方式](https://www.usmart.hk/mainland/about-us/contact-us)；其他新增资源主机来自香港下载页和[官方基础报价文档](https://jy-common-prd-hongkong-1257884527.cos.ap-hongkong.myqcloud.com/open-api/%E5%9F%BA%E7%A4%8E%E5%A0%B1%E5%83%B9%E9%96%8B%E6%94%BEAPI%28%E7%B9%81%29_20201029.pdf)。[官方基础行情 API](https://api-doc.usmart8.com/zh-hk/quote-base.html) 和[行情推送文档](https://api-doc.usmart.sg/quote-push.html)分别列出 `open-hz.yxzq.com:8443` 和 `open-hz.usmartsg.com:8443`，已由现有后缀规则覆盖；域名规则不限端口，不需要将全部 8443 流量改为直连。
+
+同一安装包的 `classes6.dex` / `classes7.dex` 包含 `m.ylzqhk.com`，`classes7.dex` / `classes8.dex` 包含 `global.beerichinvest.com` 的内容入口，因此补充直连；第三方 SDK 中的测试 IP、推送厂商 IP、文档链接和社交分享平台不据此当作行情线路。Android 证据用于补充已知地址，不能证明 iOS 使用完全相同的线路。
+
+**实时 TCP 行情线路：** `classes7.dex` 包含 `/quotes-tcpslb/api/v1/tcpnodes` 路径。2026-11-17 匿名 GET [香港行情线路接口](https://hz.yxzq.com/quotes-tcpslb/api/v1/tcpnodes)返回 `code: 0`、`masterAddr: "47.239.19.15:26000"`，复查返回同 IP 的 `21000` 端口；[新加坡行情线路接口](https://hz.usmartsg.com/quotes-tcpslb/api/v1/tcpnodes)返回 `47.242.186.255:26000`；App 同时引用的 [HKST 行情线路接口](https://hz-hkst.yxzq.com/quotes-tcpslb/api/v1/tcpnodes)返回 `47.240.105.222:21000`。三个 IP 均已添加精确 `/32` 直连，不仅覆盖 HTTPS。服务端可动态分配其他线路，这些返回不等于所有地区、账户或未来时间的完整节点清单；未登录账户或发起下单。
+
+**Shadowrocket 验收：** 手动更新并启用本仓库的 `sr_cnip.conf`，确认“全局路由”为“配置”；退出盈立 App，断开并重新连接 Shadowrocket，再打开行情，避免沿用旧连接。在连接记录中检查行情域名或 IP 是否命中 `DIRECT`。如果仍不可用，临时切到全局“直连”作对照，再恢复“配置”：全局直连可用而配置模式不可用时，需按失败连接的域名 / IP 补充；全局直连也不可用但关闭 Shadowrocket 可用时，仅追加域名无法解释全部问题，应继续检查 DNS 或 VPN 兼容性。
+
+这些是公开页面、脚本及 Android 安装包可确认的地址，不是 iOS 抓包得出的完整交易依赖清单；内置备用线路可能由服务端更新，不能保证仍全部使用。精确 IP 规则会让访问同一 IP 的其他连接也直连，但未扩大到云厂商网段。没有将整个 `myqcloud.com`、`udesk.cn`、`onelink.me` 或共享统计 / 客服平台设为直连。命中 `DIRECT` 后不会因直连失败自动回退到代理。
 
 ## 12. 插件与连接器的范围边界
 

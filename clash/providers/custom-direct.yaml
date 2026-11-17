@@ -18,6 +18,10 @@ payload:
   - DOMAIN-SUFFIX,usmartsg.com
   - DOMAIN-SUFFIX,usmart66.com
   - DOMAIN-SUFFIX,usmart8.com
+  - DOMAIN-SUFFIX,usmarthk.com
+  - DOMAIN-SUFFIX,usmartfinance.com
+  - DOMAIN-SUFFIX,ylzqhk.com
+  - DOMAIN,global.beerichinvest.com
   - DOMAIN-SUFFIX,usmartcapital.com
   - DOMAIN-SUFFIX,usmartgroup.com
   - DOMAIN-SUFFIX,yxzq.com
@@ -29,3 +33,22 @@ payload:
   - DOMAIN,web-static-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com
   - DOMAIN,jy-common-prd-1257884527.cos.ap-guangzhou.myqcloud.com
   - DOMAIN,jy-common-sg-prd-singapore-1257884527.cos.ap-singapore.myqcloud.com
+  - DOMAIN,hq-prod-news-server-hongkong-1319870113.cos.accelerate.myqcloud.com
+  - DOMAIN,pc-usmart-prd-hk-1319870113.cos.ap-hongkong.myqcloud.com
+  - DOMAIN,jy-common-sg-prd-singapore-1437682127.cos.accelerate.myqcloud.com
+  - DOMAIN,jy-common-prd-hongkong-1257884527.cos.ap-hongkong.myqcloud.com
+  - IP-CIDR,139.199.139.211/32,no-resolve
+  - IP-CIDR,124.156.123.52/32,no-resolve
+  - IP-CIDR,139.199.43.245/32,no-resolve
+  - IP-CIDR,120.77.150.199/32,no-resolve
+  - IP-CIDR,47.240.105.222/32,no-resolve
+  - IP-CIDR,120.77.252.10/32,no-resolve
+  - IP-CIDR,47.112.163.19/32,no-resolve
+  - IP-CIDR,3.33.131.232/32,no-resolve
+  - IP-CIDR,47.242.182.40/32,no-resolve
+  - IP-CIDR,139.199.139.236/32,no-resolve
+  - IP-CIDR,124.156.123.105/32,no-resolve
+  - IP-CIDR,139.199.139.235/32,no-resolve
+  - IP-CIDR,124.156.123.104/32,no-resolve
+  - IP-CIDR,47.239.19.15/32,no-resolve
+  - IP-CIDR,47.242.186.255/32,no-resolve
