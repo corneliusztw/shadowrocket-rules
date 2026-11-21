@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { merge, customRules } from '../scripts/sync.mjs';
 
 const upstream = '# attribution\n[General]\nipv6 = false\n[Rule]\nDOMAIN,a.example,PROXY\nFINAL,PROXY\n[MITM]\nhostname = example.com\n';
@@ -26,7 +27,7 @@ test('reject malformed or dangerous custom structure', () => {
   assert.throws(() => customRules('missing block'));
 });
 test('reject HTML, missing FINAL, missing or duplicate sections', () => {
-  for (const value of ['<html>error</html>', upstream.replace('FINAL,PROXY', ''), upstream.replace('[General]', '[Other]'), upstream + '[Rule]\nFINAL,DIRECT']) {
+  for (const value of ['<html>error</html>', upstream.replace('FINAL,PROXY', ''), upstream.replace('[General]', '[Other]'), upstream + '[Rule]\nFINAL,DIRECT', upstream + '[General]\n']) {
     assert.throws(() => merge(value, md('')));
   }
 });
@@ -41,4 +42,24 @@ test('multiple documented service groups merge in order and optional rules stay 
   assert.ok(!output.includes('optional.example'));
   assert.ok(output.indexOf('first.example') < output.indexOf('second.example'));
   assert.ok(output.indexOf('second.example') < output.indexOf('DOMAIN,a.example,PROXY'));
+});
+
+test('sync replaces upstream General and prepends the Gemini iOS policies', () => {
+  const localGeneral = readFileSync(new URL('../scripts/shadowrocket-general.conf', import.meta.url), 'utf8');
+  const markdown = readFileSync(new URL('../custom-rules.md', import.meta.url), 'utf8');
+  const source = upstream.replace('ipv6 = false', 'bypass-tun = 198.18.0.0/15\nblock-quic = always-allow');
+  assert.throws(() => merge(source, markdown, '[General]\n[Rule]\n'), /one local General/);
+  const output = merge(source, markdown, localGeneral);
+  assert.ok(output.includes(localGeneral.trimEnd() + '\n[Rule]'));
+  assert.match(output, /^block-quic = all-proxy$/m);
+  assert.match(output, /^udp-policy-not-supported-behaviour = REJECT$/m);
+  assert.doesNotMatch(output, /^bypass-tun\s*=.*198\.18\.0\.0\/15|^update-url\s*=/m);
+  const expected = [
+    'DOMAIN-SUFFIX,gemini.google.com,PROXY',
+    'DOMAIN-SUFFIX,googleapis.com,PROXY',
+    'DOMAIN-SUFFIX,clients6.google.com,PROXY',
+    'DOMAIN,robinfrontend-pa.googleapis.com,PROXY',
+    'DOMAIN,webchannel-robinfrontend-pa.googleapis.com,PROXY',
+  ];
+  assert.ok(output.split('# END CUSTOM RULES')[0].includes(expected.join('\n')));
 });

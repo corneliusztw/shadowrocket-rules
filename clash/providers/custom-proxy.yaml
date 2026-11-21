@@ -63,6 +63,10 @@ payload:
   - DOMAIN-SUFFIX,claudeusercontent.com
   - DOMAIN,storage.googleapis.com
   - DOMAIN-SUFFIX,gemini.google.com
+  - DOMAIN-SUFFIX,googleapis.com
+  - DOMAIN-SUFFIX,clients6.google.com
+  - DOMAIN,robinfrontend-pa.googleapis.com
+  - DOMAIN,webchannel-robinfrontend-pa.googleapis.com
   - DOMAIN,gemini.app.google
   - DOMAIN,aistudio.google.com
   - DOMAIN,geminiweb-pa.clients6.google.com

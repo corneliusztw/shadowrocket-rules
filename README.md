@@ -30,7 +30,7 @@ uSMART / 盈立证券的已确认官网、地区入口、接口、下载及资�
 
 编辑其中的 `shadowrocket` 代码块即可修改；以 `#` 开头的可选规则默认不生效。提交到 `main` 后立即触发同步，也可以在 Actions → Sync Shadowrocket and Clash rules → Run workflow 手动运行。
 
-规则插入上游 `[Rule]` 的最前面。不要直接修改生成的 `sr_cnip.conf`，它会在下次同步时被覆盖。
+规则插入上游 `[Rule]` 的最前面。Shadowrocket 的整个 `[General]` 区块取自 [shadowrocket-general.conf](scripts/shadowrocket-general.conf)，上游该区块的新设置需手动合入。直接修改生成的 `sr_cnip.conf` 会在下次同步时被覆盖。
 
 ## 运行方式
 

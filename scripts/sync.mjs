@@ -37,21 +37,27 @@ export function customRules(markdown) {
   return [...new Set(rules)];
 }
 
-export function merge(upstream, markdown) {
+export function merge(upstream, markdown, general) {
   const text = upstream.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
-  const sections = [...text.matchAll(/^\[([^\]\n]+)\][ \t]*$/gm)];
-  const ruleSections = sections.filter(s => s[1] === 'Rule');
-  if (!sections.some(s => s[1] === 'General') || ruleSections.length !== 1 || /<html|<!doctype/i.test(text)) {
+  const sections = text.split(/(?=^\[[^\]\n]+\][ \t]*$)/m);
+  const generalSections = sections.filter(s => /^\[General\][ \t]*$/m.test(s));
+  const ruleSections = sections.filter(s => /^\[Rule\][ \t]*$/m.test(s));
+  if (generalSections.length !== 1 || ruleSections.length !== 1 || /<html|<!doctype/i.test(text)) {
     throw new Error('Upstream is not a valid Shadowrocket config');
   }
-  const section = ruleSections[0];
-  const start = section.index + section[0].length;
-  const end = sections.find(s => s.index > section.index)?.index ?? text.length;
-  if (!/^FINAL\s*,\s*\S+/im.test(text.slice(start, end))) throw new Error('Upstream Rule section has no FINAL rule');
+  const ruleSection = ruleSections[0];
+  if (!/^FINAL\s*,\s*\S+/im.test(ruleSection)) throw new Error('Upstream Rule section has no FINAL rule');
+  if (general !== undefined) {
+    const local = general.replace(/\r\n?/g, '\n').trimEnd();
+    if (!local.startsWith('[General]\n') || /\n\[/.test(local)) throw new Error('Expected one local General section');
+    sections[sections.indexOf(generalSections[0])] = local + '\n';
+  }
   const rules = customRules(markdown);
-  if (!rules.length) return text.trimEnd() + '\n';
-  return text.slice(0, start) + '\n# BEGIN CUSTOM RULES (custom-rules.md)\n' + rules.join('\n') +
-    '\n# END CUSTOM RULES\n' + text.slice(start).trimEnd() + '\n';
+  if (rules.length) {
+    sections[sections.indexOf(ruleSection)] = ruleSection.replace('\n', () =>
+      '\n# BEGIN CUSTOM RULES (custom-rules.md)\n' + rules.join('\n') + '\n# END CUSTOM RULES\n');
+  }
+  return sections.join('').trimEnd() + '\n';
 }
 
 export async function download() {
@@ -69,7 +75,8 @@ export async function download() {
 
 async function main() {
   const markdown = await readFile(resolve(root, 'custom-rules.md'), 'utf8');
-  const output = merge(await download(), markdown);
+  const general = await readFile(resolve(root, 'scripts/shadowrocket-general.conf'), 'utf8');
+  const output = merge(await download(), markdown, general);
   const target = resolve(root, 'sr_cnip.conf');
   let previous;
   try { previous = await readFile(target, 'utf8'); } catch (error) { if (error.code !== 'ENOENT') throw error; }

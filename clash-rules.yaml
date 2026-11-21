@@ -1,7 +1,7 @@
 # Generated rules fragment; merge into an existing Clash/Mihomo config.
 # Requires a PROXY policy; contains no nodes or subscription credentials.
 # Source and license: clash/README.md. Custom rules take precedence.
-# Loyalsoldier release revision: 2c8874ed8f30d06e80432b43556a18756bddabb4
+# Loyalsoldier release revision: ee84fc7a4027a91ee6f2269ac6f068288b339ea1
 rule-providers:
   ls-private:
     type: http
@@ -90,6 +90,10 @@ rules:
   - DOMAIN-SUFFIX,claudeusercontent.com,PROXY
   - DOMAIN,storage.googleapis.com,PROXY
   - DOMAIN-SUFFIX,gemini.google.com,PROXY
+  - DOMAIN-SUFFIX,googleapis.com,PROXY
+  - DOMAIN-SUFFIX,clients6.google.com,PROXY
+  - DOMAIN,robinfrontend-pa.googleapis.com,PROXY
+  - DOMAIN,webchannel-robinfrontend-pa.googleapis.com,PROXY
   - DOMAIN,gemini.app.google,PROXY
   - DOMAIN,aistudio.google.com,PROXY
   - DOMAIN,geminiweb-pa.clients6.google.com,PROXY

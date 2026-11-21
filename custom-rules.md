@@ -120,16 +120,13 @@ Google Health 的官方 OAuth 示例明确使用 `accounts.google.com` 和 `oaut
 
 `gstatic.com` 和 `googleusercontent.com` 是 Google 共享域名，规则会让其他 Google 产品使用这些域名的资源也走代理。若只想代理健康应用，需根据自己的连接日志缩小范围。
 
-### 2.3 可选：Google 广覆盖 / 医疗云开发者接口
+### 2.3 可选：代理整个 google.com
 
-当前未启用以下规则。若应用新版出现额外 `*-pa.googleapis.com` 等接口，可以根据日志添加精确域名，或接受更大范围后启用前两条。不要仅凭名称猜测某个 `health-*.googleapis.com` 一定存在。
+第 7.1 节的 `googleapis.com` 后缀规则也覆盖 Google Health 和 Cloud Healthcare API。
 
 ```shadowrocket
-# 兼容性兜底：影响全部 google.com 子域名和 Google API
+# 启用后，全部 google.com 子域名都会走代理
 # DOMAIN-SUFFIX,google.com,PROXY
-# DOMAIN-SUFFIX,googleapis.com,PROXY
-# 仅 Google Cloud Healthcare API 开发者场景；普通 Health/Fitbit 用户无需开启
-# DOMAIN,healthcare.googleapis.com,PROXY
 ```
 
 Health Connect 是 Android 的本机健康数据存储及共享接口，不是一个靠添加域名就能连上的独立云服务；iPhone 的 Apple Health 数据授权也需要在系统和应用内设置。Google Health Coach / Premium 的资格和地区支持需另外满足。
@@ -317,10 +314,14 @@ DOMAIN,storage.googleapis.com,PROXY
 
 ## 7. Gemini 网页 / 应用、AI Studio、API 和开发工具
 
-### 7.1 Gemini 网页及页面引用的服务
+### 7.1 Gemini 网页与 iOS 应用
 
 ```shadowrocket
 DOMAIN-SUFFIX,gemini.google.com,PROXY
+DOMAIN-SUFFIX,googleapis.com,PROXY
+DOMAIN-SUFFIX,clients6.google.com,PROXY
+DOMAIN,robinfrontend-pa.googleapis.com,PROXY
+DOMAIN,webchannel-robinfrontend-pa.googleapis.com,PROXY
 DOMAIN,gemini.app.google,PROXY
 DOMAIN,aistudio.google.com,PROXY
 # 下列主机实际出现在本次获取的 Gemini 官网 HTML 中
@@ -335,7 +336,7 @@ DOMAIN,drive.google.com,PROXY
 DOMAIN,docs.google.com,PROXY
 ```
 
-`accounts.google.com`、`oauth2.googleapis.com`、`gstatic.com`、`googleusercontent.com` 已在第 2 节启用，无需再次添加。`gemini.gstatic.com` 也已被覆盖。`clients6.google.com` 中的几个地址依据页面引用添加，不宣称每个都是聊天的必要请求；没有把页面中的内部开发域名、全部外链和统计域名一并加入。
+两个 Robin 主机按 iOS 排障需求显式列出，实际分流会先命中 `googleapis.com` 后缀。其他应用访问 `googleapis.com` 或 `clients6.google.com` 及其子域名时也会走代理。第 2 节已覆盖登录和静态资源所用的域名。
 
 来源：[Gemini 官方登录说明](https://support.google.com/gemini/answer/13278668?hl=en)、[Gemini 官网](https://gemini.google.com/)。页面引用会随版本调整，这不是官方完整白名单。
 
@@ -357,7 +358,7 @@ DOMAIN,apihub.googleapis.com,PROXY
 
 这里包含模型、IDE、项目选择、资料、反馈和诊断服务，并非全部是 Gemini 消费者应用的依赖。CLI 根据 Google 登录、API Key 或 Vertex 等认证方式使用不同后台；已覆盖官方 Gemini API 和 Code Assist 常用端点，Vertex 地区端点仍需按实际项目补充。
 
-来源：[Gemini API](https://ai.google.dev/api/generate-content)、[Gemini CLI 认证方式](https://geminicli.com/docs/get-started/authentication/)、[Google Code Assist 网络要求](https://docs.cloud.google.com/gemini/docs/codeassist/set-up-gemini)。没有启用整个 `googleapis.com` 后缀，已有 Google Health 和 OAuth 精确规则继续有效。
+来源：[Gemini API](https://ai.google.dev/api/generate-content)、[Gemini CLI 认证方式](https://geminicli.com/docs/get-started/authentication/)、[Google Code Assist 网络要求](https://docs.cloud.google.com/gemini/docs/codeassist/set-up-gemini)。
 
 ## 8. Meta AI
 
