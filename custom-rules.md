@@ -412,6 +412,8 @@ DOMAIN-SUFFIX,swing.tennis,DIRECT
 # DNS 已确认的 CDN / API CNAME 目标：仅补充直接以原始主机名访问的情况
 DOMAIN,d2e4zd6qaudbjo.cloudfront.net,DIRECT
 DOMAIN,production-swing-api-1378744981.us-west-2.elb.amazonaws.com,DIRECT
+# 官网生产环境 Sentry 错误上报主机；仅匹配该主机，不放行整个 Sentry
+DOMAIN,o4505088063242240.ingest.us.sentry.io,DIRECT
 # 官方公开演示接口中实际出现的生产 S3 存储桶主机
 DOMAIN,production-swing-tennis.s3.us-west-2.amazonaws.com,DIRECT
 # 同一存储桶的标准、旧区域、双栈及传输加速地址：兼容补充，未实测手机上传
@@ -426,7 +428,9 @@ DOMAIN,production-swing-tennis.s3-accelerate.dualstack.amazonaws.com,DIRECT
 
 其余 S3 主机按同一桶和区域组合，属于兼容范围，格式依据 [AWS 虚拟主机地址](https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html)、[双栈端点](https://docs.aws.amazon.com/AmazonS3/latest/developerguide/dual-stack-endpoints.html) 和 [传输加速端点](https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html)。不将整个 `amazonaws.com`、`cloudfront.net` 或共享 S3 区域端点设为直连。
 
-本轮检索与核实结果：
+2026-11-23 周检补充：[当日官网前端脚本](https://swing.vision/static/js/main.1791f2e8.js) 的 Sentry 初始化配置在 `environment: "production"` 下使用 `o4505088063242240.ingest.us.sentry.io`，因此按全服务直连要求新增该精确主机。仅记录主机名，不保存完整 DSN 或密钥；[Sentry 官方 DSN 说明](https://docs.sentry.io/concepts/key-terms/dsn-explainer/) 确认其中 HOST 指向事件接收服务器。本项属于网页错误监控与遥测，不是已确认的 iOS 视频上传地址；不扩展到 `sentry.io` 或 `ingest.us.sentry.io` 后缀。公开演示接口及 API / CDN CNAME 仍与原记录一致；本次证书查询返回 HTTP 502，未用于推断新增域名。
+
+2026-11-11 检索与核实结果：
 
 | 检索对象 | 证据与结论 | 规则处理 |
 | --- | --- | --- |

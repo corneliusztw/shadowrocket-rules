@@ -1,7 +1,7 @@
 # Generated rules fragment; merge into an existing Clash/Mihomo config.
 # Requires a PROXY policy; contains no nodes or subscription credentials.
 # Source and license: clash/README.md. Custom rules take precedence.
-# Loyalsoldier release revision: 9c0a986e7a8251788f6d8470111bec5559c4a39a
+# Loyalsoldier release revision: 61b2cb00933a2e5de322a177b1925f3f6c229193
 rule-providers:
   ls-private:
     type: http
@@ -127,6 +127,7 @@ rules:
   - DOMAIN-SUFFIX,swing.tennis,DIRECT
   - DOMAIN,d2e4zd6qaudbjo.cloudfront.net,DIRECT
   - DOMAIN,production-swing-api-1378744981.us-west-2.elb.amazonaws.com,DIRECT
+  - DOMAIN,o4505088063242240.ingest.us.sentry.io,DIRECT
   - DOMAIN,production-swing-tennis.s3.us-west-2.amazonaws.com,DIRECT
   - DOMAIN,production-swing-tennis.s3.amazonaws.com,DIRECT
   - DOMAIN,production-swing-tennis.s3-us-west-2.amazonaws.com,DIRECT
